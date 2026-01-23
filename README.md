@@ -18,3 +18,4 @@ View your app in AI Studio: https://ai.studio/apps/drive/10Mj3Y-rzfnIse0eZB-NhhW
 2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
 3. Run the app:
    `npm run dev`
+![image alt](https://github.com/DORMAMMUJR/ElChefInmobiliario/blob/68e8970513cc8e5dd02ced4868fde684e7586ac2/WhatsApp%20Image%202026-01-23%20at%204.22.16%20PM.jpeg)
