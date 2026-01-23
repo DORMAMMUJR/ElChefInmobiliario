@@ -17,13 +17,24 @@ import {
   MapPin,
   Sparkles,
   ChevronDown,
-  ArrowRight
+  ArrowRight,
+  Headphones,
+  Search,
+  ArrowLeft
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+type View = 'home' | 'catalog' | 'sell';
+
 const App: React.FC = () => {
   const [language, setLanguage] = useState<'es' | 'en'>('es');
+  const [currentView, setCurrentView] = useState<View>('home');
   const t = TRANSLATIONS[language];
+
+  // Fix: Added missing toggleLanguage function
+  const toggleLanguage = () => {
+    setLanguage(prev => (prev === 'es' ? 'en' : 'es'));
+  };
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [filters, setFilters] = useState<FilterState>({
@@ -40,21 +51,9 @@ const App: React.FC = () => {
   const [aiExplanation, setAiExplanation] = useState<string | null>(null);
   const [leadStatus, setLeadStatus] = useState<'idle' | 'sending' | 'success'>('idle');
 
-  // Reveal animation on scroll
   useEffect(() => {
-    const observerOptions = { threshold: 0.1 };
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-reveal');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
-    return () => observer.disconnect();
-  }, [language]);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentView]);
 
   const filteredProperties = useMemo(() => {
     return PROPIEDADES.filter(item => {
@@ -82,16 +81,15 @@ const App: React.FC = () => {
       if (result.explanation) {
         setAiExplanation(result.explanation);
       }
+      setCurrentView('catalog');
     }
     setIsAIProcessing(false);
   };
 
-  const handleManualSearch = () => {
-    const section = document.getElementById('inventario');
-    if (section) section.scrollIntoView({ behavior: 'smooth' });
+  const navigateTo = (view: View) => {
+    setCurrentView(view);
+    setIsMenuOpen(false);
   };
-
-  const toggleLanguage = () => setLanguage(prev => prev === 'es' ? 'en' : 'es');
 
   const handleLeadSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -105,89 +103,24 @@ const App: React.FC = () => {
     }, 1200);
   };
 
-  return (
-    <div className="min-h-screen bg-[#050505]">
-      {/* HEADER STICKY */}
-      <header className="fixed top-0 w-full z-[100] bg-[#050505]/95 backdrop-blur-md border-b border-white/5 h-24">
-        <div className="container mx-auto px-6 h-full flex items-center justify-between">
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="flex flex-col cursor-pointer"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          >
-            <span className="text-white text-lg font-serif font-bold tracking-tighter">MIGUEL ANGEL PÉREZ</span>
-            <span className="text-[#D4AF37] text-[9px] uppercase tracking-[0.4em] font-bold">El Chef Inmobiliario</span>
-          </motion.div>
-
-          {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-10 text-[10px] font-bold text-white uppercase tracking-widest">
-            <a href="#inicio" className="nav-link">{t.nav_home}</a>
-            <a href="#inventario" className="nav-link">{t.nav_properties}</a>
-            <a href="#vender" className="nav-link">{t.nav_sell}</a>
-            <a href="#nosotros" className="nav-link">{t.nav_about}</a>
-          </nav>
-
-          <div className="flex items-center gap-4 md:gap-8">
-            {/* Language Switcher */}
-            <button 
-              onClick={toggleLanguage}
-              className="flex items-center gap-2 text-white/60 hover:text-[#D4AF37] transition-colors text-[10px] font-bold uppercase tracking-widest border border-white/10 px-3 py-1"
-            >
-              <Globe className="w-3 h-3" />
-              {t.lang_btn}
-            </button>
-
-            <a 
-              href="https://wa.me/14377768395"
-              target="_blank"
-              className="bg-[#D4AF37] text-black px-6 md:px-8 py-3 rounded-none text-[10px] font-bold hover:bg-white transition-all tracking-[0.2em] flex items-center gap-2"
-            >
-              <MessageCircle className="w-3 h-3" />
-              <span className="hidden xs:inline">{t.nav_cta}</span>
-            </a>
-
-            {/* Mobile Menu Toggle */}
-            <button 
-              className="lg:hidden text-white p-2"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div 
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden bg-[#111] border-b border-white/5 overflow-hidden"
-            >
-              <nav className="flex flex-col p-8 gap-6 text-[11px] font-bold text-white uppercase tracking-widest">
-                <a href="#inicio" onClick={() => setIsMenuOpen(false)}>{t.nav_home}</a>
-                <a href="#inventario" onClick={() => setIsMenuOpen(false)}>{t.nav_properties}</a>
-                <a href="#vender" onClick={() => setIsMenuOpen(false)}>{t.nav_sell}</a>
-                <a href="#nosotros" onClick={() => setIsMenuOpen(false)}>{t.nav_about}</a>
-              </nav>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </header>
-
+  const renderHome = () => (
+    <>
       {/* HERO SECTION */}
-      <section id="inicio" className="relative h-screen flex items-center justify-center overflow-hidden">
-        <motion.img 
-          initial={{ scale: 1.1 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 10, ease: 'linear' }}
-          src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=90&w=2000" 
-          className="absolute inset-0 w-full h-full object-cover" 
-          alt="Luxury Architecture"
-        />
-        <div className="absolute inset-0 hero-overlay opacity-80"></div>
+      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+        <motion.div 
+          initial={{ scale: 1.1, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1.5 }}
+          className="absolute inset-0"
+        >
+          <img 
+            src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=90&w=2000" 
+            className="w-full h-full object-cover" 
+            alt="Main Architecture"
+          />
+        </motion.div>
+        {/* Subtle gradient instead of heavy black overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/10"></div>
         
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
@@ -195,348 +128,276 @@ const App: React.FC = () => {
           transition={{ delay: 0.5, duration: 1 }}
           className="relative z-10 text-center px-6"
         >
-          <h1 className="text-5xl md:text-8xl font-serif font-bold text-white mb-8 drop-shadow-2xl">
-            {t.hero_title}
+          <h1 className="text-6xl md:text-[100px] font-serif font-bold text-white mb-6 leading-none tracking-tighter">
+            {t.hero_title.split(' ').map((word, i) => (
+              <span key={i} className={i === 2 ? "text-[#D4AF37] italic" : ""}>{word} </span>
+            ))}
           </h1>
-          <p className="text-[#D4AF37] text-lg md:text-2xl font-light tracking-[0.2em] uppercase mb-12">
+          <p className="text-[#D4AF37] text-sm md:text-xl font-light tracking-[0.6em] uppercase mb-12">
             {t.hero_subtitle}
           </p>
-          <a href="#inventario" className="inline-block border border-white text-white px-12 py-5 text-[10px] font-bold uppercase tracking-[0.4em] hover:bg-white hover:text-black transition-all">
+          <button 
+            onClick={() => navigateTo('catalog')}
+            className="btn-luxury-gold text-black px-12 py-5 text-[10px] font-bold uppercase tracking-[0.5em] shadow-2xl"
+          >
             {t.hero_cta}
-          </a>
-        </motion.div>
-
-        {/* ADVANCED SEARCH BAR (FLOATING) */}
-        <motion.div 
-          initial={{ opacity: 0, y: 100 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 1 }}
-          className="absolute bottom-0 left-0 w-full px-6 translate-y-1/2 z-20"
-        >
-          <div className="container mx-auto">
-            <div className="bg-[#111] p-8 md:p-12 shadow-luxury border border-white/5">
-              <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
-                
-                {/* OPERATION FILTER */}
-                <div className="flex flex-col group">
-                  <label className="text-[9px] uppercase font-bold text-[#666] tracking-[0.3em] mb-2 transition-colors group-hover:text-[#A0A0A0]">
-                    {t.filter_op}
-                  </label>
-                  <div className="relative">
-                    <select 
-                      value={filters.operacion}
-                      onChange={(e) => setFilters({...filters, operacion: e.target.value})}
-                      className="w-full appearance-none bg-black/40 border border-white/10 rounded-none px-5 py-4 text-[11px] font-bold uppercase tracking-widest focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/20 outline-none transition-all cursor-pointer"
-                    >
-                      <option value="todos">{language === 'es' ? 'Cualquiera' : 'Any'}</option>
-                      <option value="Venta">Venta</option>
-                      <option value="Renta">Renta</option>
-                    </select>
-                    <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-3 h-3 text-[#D4AF37] pointer-events-none" />
-                  </div>
-                </div>
-
-                {/* TYPE FILTER */}
-                <div className="flex flex-col group">
-                  <label className="text-[9px] uppercase font-bold text-[#666] tracking-[0.3em] mb-2 transition-colors group-hover:text-[#A0A0A0]">
-                    {t.filter_type}
-                  </label>
-                  <div className="relative">
-                    <select 
-                      value={filters.tipo}
-                      onChange={(e) => setFilters({...filters, tipo: e.target.value})}
-                      className="w-full appearance-none bg-black/40 border border-white/10 rounded-none px-5 py-4 text-[11px] font-bold uppercase tracking-widest focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/20 outline-none transition-all cursor-pointer"
-                    >
-                      <option value="todos">{language === 'es' ? 'Cualquiera' : 'Any'}</option>
-                      <option value="Casa">Casa</option>
-                      <option value="Departamento">Departamento</option>
-                    </select>
-                    <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-3 h-3 text-[#D4AF37] pointer-events-none" />
-                  </div>
-                </div>
-
-                {/* LOCATION FILTER */}
-                <div className="flex flex-col group">
-                  <label className="text-[9px] uppercase font-bold text-[#666] tracking-[0.3em] mb-2 transition-colors group-hover:text-[#A0A0A0]">
-                    {t.filter_loc}
-                  </label>
-                  <div className="relative">
-                    <select 
-                      value={filters.zona}
-                      onChange={(e) => setFilters({...filters, zona: e.target.value})}
-                      className="w-full appearance-none bg-black/40 border border-white/10 rounded-none px-5 py-4 text-[11px] font-bold uppercase tracking-widest focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/20 outline-none transition-all cursor-pointer"
-                    >
-                      <option value="todos">Ciudad de México</option>
-                      {Array.from(new Set(PROPIEDADES.map(p => p.zona))).map(z => (
-                        <option key={z} value={z}>{z}</option>
-                      ))}
-                    </select>
-                    <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-3 h-3 text-[#D4AF37] pointer-events-none" />
-                  </div>
-                </div>
-
-                {/* ROOMS FILTER */}
-                <div className="flex flex-col group">
-                  <label className="text-[9px] uppercase font-bold text-[#666] tracking-[0.3em] mb-2 transition-colors group-hover:text-[#A0A0A0]">
-                    {t.filter_rooms}
-                  </label>
-                  <div className="relative">
-                    <select className="w-full appearance-none bg-black/40 border border-white/10 rounded-none px-5 py-4 text-[11px] font-bold uppercase tracking-widest focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/20 outline-none transition-all cursor-pointer">
-                      <option>{language === 'es' ? 'Cualquiera' : 'Any'}</option>
-                      <option>1+</option>
-                      <option>2+</option>
-                      <option>3+</option>
-                    </select>
-                    <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-3 h-3 text-[#D4AF37] pointer-events-none" />
-                  </div>
-                </div>
-
-                <button 
-                  onClick={handleManualSearch}
-                  className="bg-[#D4AF37] text-black font-bold h-[54px] mt-auto flex items-center justify-center gap-3 hover:bg-white transition-all uppercase tracking-[0.3em] text-[10px]"
-                >
-                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                  {t.filter_search_btn}
-                </button>
-              </div>
-
-              {/* AI INTEGRATION */}
-              <div className="mt-8 pt-8 border-t border-white/5">
-                <form onSubmit={handleAISearch} className="flex gap-4">
-                  <div className="flex-grow relative group">
-                    <input 
-                      type="text" 
-                      value={filters.query}
-                      onChange={(e) => setFilters({...filters, query: e.target.value})}
-                      placeholder={t.filter_ai_placeholder}
-                      className="w-full border border-white/10 py-3.5 px-6 pr-10 text-[11px] uppercase tracking-widest outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/10 bg-black/20 transition-all"
-                    />
-                    <Sparkles className={`absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#D4AF37] ${isAIProcessing ? 'animate-pulse' : 'opacity-30 group-hover:opacity-60'} transition-opacity`} />
-                  </div>
-                  <button type="submit" disabled={isAIProcessing} className="text-[#D4AF37] text-[10px] font-bold uppercase tracking-widest hover:text-white transition-colors">
-                    {isAIProcessing ? '...' : 'AI ASSISTANT'}
-                  </button>
-                </form>
-
-                <AnimatePresence>
-                  {aiExplanation && (
-                    <motion.div 
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      className="mt-4 p-4 border-l-2 border-[#D4AF37] bg-white/[0.03] backdrop-blur-sm"
-                    >
-                      <p className="text-[#D4AF37] text-[8px] uppercase font-bold tracking-[0.2em] mb-1 flex items-center gap-2">
-                        <Sparkles className="w-3 h-3" />
-                        {language === 'es' ? 'Análisis IA' : 'AI Interpretation'}
-                      </p>
-                      <p className="text-[#A0A0A0] text-[11px] leading-relaxed italic font-medium">
-                        "{aiExplanation}"
-                      </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            </div>
-          </div>
+          </button>
         </motion.div>
       </section>
 
-      {/* NUEVOS DESARROLLOS */}
-      <main id="inventario" className="pt-64 pb-32 bg-[#050505]">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col items-center mb-20 text-center reveal-on-scroll">
-            <span className="text-[#D4AF37] text-[10px] font-bold uppercase tracking-[0.6em] mb-4">Curaduría Exclusiva</span>
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">{t.section_properties}</h2>
-            <div className="w-20 h-[1px] bg-[#D4AF37]"></div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            {filteredProperties.map((prop, index) => (
-              <div key={prop.id} className="reveal-on-scroll" style={{ animationDelay: `${index * 0.1}s` }}>
-                <PropertyCard 
-                  property={prop} 
-                  onViewDetails={setSelectedProperty} 
-                  onToggleCompare={() => {}}
-                  isComparing={false}
-                  labels={{
-                    rooms: t.card_rooms,
-                    baths: t.card_baths,
-                    details: t.card_details
-                  }}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </main>
-
-      {/* VENDER SECCIÓN */}
-      <section id="vender" className="py-32 bg-[#111] reveal-on-scroll">
-        <div className="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div className="relative aspect-square">
-                <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=1000" className="w-full h-full object-cover grayscale-[30%]" alt="Sell Luxury" />
-                <div className="absolute inset-0 border-[20px] border-[#D4AF37]/10 translate-x-10 translate-y-10 -z-10"></div>
-            </div>
-            <div>
-                <span className="text-[#D4AF37] text-[10px] font-bold uppercase tracking-[0.6em] mb-4">{t.nav_sell}</span>
-                <h2 className="text-4xl md:text-6xl font-serif font-bold text-white mb-8 leading-tight">Maximizamos el Valor de su Propiedad</h2>
-                <p className="text-[#A0A0A0] text-lg font-light leading-relaxed mb-12 uppercase tracking-widest">Servicio de asesoría estratégica para inmuebles de alto perfil.</p>
-                <button 
-                  onClick={() => setLeadContext(t.nav_sell)}
-                  className="bg-[#D4AF37] text-black px-12 py-5 text-[10px] font-bold uppercase tracking-[0.4em] hover:bg-white transition-all flex items-center gap-4"
-                >
-                  Agendar Consultoría
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-            </div>
-        </div>
-      </section>
-
-      {/* SERVICIOS EXCLUSIVOS */}
+      {/* QUICK STATS / TRUST */}
       <section className="py-32 bg-[#050505]">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-24 reveal-on-scroll">
-            <h2 className="text-4xl font-serif font-bold text-white mb-6">{t.section_services}</h2>
-            <p className="text-[#A0A0A0] tracking-widest uppercase text-xs">Expertise Inmobiliaria de Guante Blanco</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
-            {SERVICIOS.map((serv, index) => (
-              <div 
-                key={serv.id} 
-                className="text-center group reveal-on-scroll cursor-pointer" 
-                style={{ animationDelay: `${index * 0.2}s` }}
-                onClick={() => setLeadContext(`${t.section_services}: ${serv.titulo}`)}
-              >
-                <div className="text-5xl mb-8 group-hover:scale-110 transition-transform duration-500 block">{serv.icono}</div>
-                <h3 className="text-xl font-serif text-[#D4AF37] mb-4">{serv.titulo}</h3>
-                <p className="text-[#A0A0A0] text-sm leading-relaxed max-w-xs mx-auto mb-6">{serv.descripcion}</p>
-                <span className="text-[9px] font-bold text-white/40 uppercase tracking-[0.3em] group-hover:text-[#D4AF37] transition-colors">{language === 'es' ? 'Saber más' : 'Learn More'}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* DEL QUIERO A LA REALIDAD */}
-      <section className="py-32 bg-[#111]">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col items-center mb-24 text-center reveal-on-scroll">
-            <h2 className="text-4xl font-serif font-bold text-white mb-6">{t.section_testimonials}</h2>
-            <div className="w-16 h-[1px] bg-[#D4AF37]"></div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {TESTIMONIOS.map((test, index) => (
-              <div 
-                key={test.id} 
-                className="bg-[#050505] p-12 border border-white/5 flex flex-col md:flex-row gap-8 items-center md:items-start transition-all hover:border-[#D4AF37]/30 reveal-on-scroll cursor-pointer group" 
-                style={{ animationDelay: `${index * 0.2}s` }}
-                onClick={() => window.open(`https://wa.me/14377768395?text=Vi el testimonio de ${test.nombre} y quisiera asesoría similar`, '_blank')}
-              >
-                <img src={test.foto} className="w-24 h-24 rounded-full object-cover border border-[#D4AF37] group-hover:scale-105 transition-transform" alt={test.nombre} />
-                <div className="text-center md:text-left">
-                  <p className="text-white italic text-lg font-light leading-relaxed mb-6">"{test.comentario}"</p>
-                  <h4 className="text-[#D4AF37] font-bold text-sm tracking-widest uppercase">{test.nombre}</h4>
-                  <span className="text-[#A0A0A0] text-[10px] uppercase tracking-widest">{test.rol}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* NOSOTROS SECCIÓN */}
-      <section id="nosotros" className="py-32 bg-[#050505] reveal-on-scroll">
-        <div className="container mx-auto px-6 text-center max-w-4xl">
-            <h2 className="text-5xl font-serif font-bold text-white mb-10">La Diferencia es el Detalle</h2>
-            <p className="text-[#A0A0A0] text-lg font-light leading-relaxed mb-12 tracking-widest uppercase">
-                Miguel Angel Pérez combina la pasión de un chef con la precisión de un estratega inmobiliario. Cada propiedad es una receta única de arquitectura, inversión y estilo de vida.
-            </p>
-            <div className="flex justify-center gap-12 mb-16">
-                <div className="text-center">
-                    <p className="text-[#D4AF37] text-4xl font-serif mb-2">15+</p>
-                    <p className="text-white text-[9px] uppercase tracking-widest font-bold">Años de Trayectoria</p>
-                </div>
-                <div className="text-center">
-                    <p className="text-[#D4AF37] text-4xl font-serif mb-2">500+</p>
-                    <p className="text-white text-[9px] uppercase tracking-widest font-bold">Clientes Satisfechos</p>
-                </div>
-                <div className="text-center">
-                    <p className="text-[#D4AF37] text-4xl font-serif mb-2">80%</p>
-                    <p className="text-white text-[9px] uppercase tracking-widest font-bold">Referidos</p>
-                </div>
-            </div>
-            <button 
-              onClick={() => setLeadContext('Conocer a Miguel Angel')}
-              className="border border-[#D4AF37] text-[#D4AF37] px-12 py-5 text-[10px] font-bold uppercase tracking-[0.4em] hover:bg-[#D4AF37] hover:text-black transition-all"
+        <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-20">
+          {SERVICIOS.map((serv, index) => (
+            <motion.div 
+              key={serv.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.2 }}
+              className="text-center group cursor-pointer"
+              onClick={() => setLeadContext(serv.titulo)}
             >
-              {language === 'es' ? 'CONOCER MÁS' : 'LEARN MORE'}
-            </button>
+              <div className="text-5xl mb-6 grayscale group-hover:grayscale-0 transition-all">{serv.icono}</div>
+              <h3 className="text-xl font-serif text-[#D4AF37] mb-3">{serv.titulo}</h3>
+              <p className="text-white/40 text-xs tracking-widest uppercase">{serv.descripcion}</p>
+            </motion.div>
+          ))}
         </div>
       </section>
+    </>
+  );
 
-      {/* FOOTER CORPORATIVO */}
+  const renderCatalog = () => (
+    <section className="pt-32 pb-32 min-h-screen bg-[#050505]">
+      <div className="container mx-auto px-6">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+          <div>
+            <span className="text-[#D4AF37] text-[10px] font-black tracking-[0.6em] uppercase mb-4 block">Catálogo Exclusivo</span>
+            <h2 className="text-5xl font-serif font-bold text-white tracking-tighter">{t.section_properties}</h2>
+          </div>
+          
+          <div className="flex flex-wrap gap-4">
+             <select 
+              value={filters.operacion}
+              onChange={(e) => setFilters({...filters, operacion: e.target.value})}
+              className="bg-black/40 border border-white/10 px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-white outline-none focus:border-[#D4AF37]"
+             >
+                <option value="todos">Todas las Operaciones</option>
+                <option value="Venta">Venta</option>
+                <option value="Renta">Renta</option>
+             </select>
+             <select 
+              value={filters.tipo}
+              onChange={(e) => setFilters({...filters, tipo: e.target.value})}
+              className="bg-black/40 border border-white/10 px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-white outline-none focus:border-[#D4AF37]"
+             >
+                <option value="todos">Todos los Tipos</option>
+                <option value="Casa">Casa</option>
+                <option value="Departamento">Departamento</option>
+             </select>
+          </div>
+        </div>
+
+        {/* AI SEARCH IN CATALOG */}
+        <div className="mb-16 p-8 bg-white/[0.02] border border-white/5">
+           <form onSubmit={handleAISearch} className="flex gap-4">
+             <input 
+              type="text"
+              value={filters.query}
+              onChange={(e) => setFilters({...filters, query: e.target.value})}
+              placeholder={t.filter_ai_placeholder}
+              className="flex-grow bg-transparent border-b border-white/10 py-3 text-[11px] uppercase tracking-widest text-white outline-none focus:border-[#D4AF37]"
+             />
+             <button type="submit" className="text-[#D4AF37] text-[10px] font-black tracking-widest flex items-center gap-2">
+                <Sparkles className="w-4 h-4" />
+                {isAIProcessing ? '...' : 'AI ASSIST'}
+             </button>
+           </form>
+           <AnimatePresence>
+            {aiExplanation && (
+              <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-4 text-[#666] text-[10px] italic">"{aiExplanation}"</motion.p>
+            )}
+           </AnimatePresence>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+          {filteredProperties.map((prop) => (
+            <PropertyCard 
+              key={prop.id} 
+              property={prop} 
+              onViewDetails={setSelectedProperty} 
+              onToggleCompare={() => {}}
+              isComparing={false}
+              labels={{
+                rooms: t.card_rooms,
+                baths: t.card_baths,
+                details: t.card_details
+              }}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+
+  const renderSell = () => (
+    <section className="pt-32 min-h-screen bg-[#050505]">
+      <div className="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+        <motion.div 
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="relative"
+        >
+          <img 
+            src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=1000" 
+            className="w-full aspect-[4/5] object-cover" 
+            alt="Luxury Office"
+          />
+          <div className="absolute -bottom-10 -right-10 bg-[#D4AF37] p-12 text-black hidden md:block">
+            <h4 className="text-3xl font-serif font-bold mb-2">98%</h4>
+            <p className="text-[10px] font-black tracking-widest uppercase">Éxito en Cierres</p>
+          </div>
+        </motion.div>
+        
+        <motion.div 
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+        >
+          <span className="text-[#D4AF37] text-[10px] font-black tracking-[0.8em] uppercase mb-6 block">Elite Advisory</span>
+          <h2 className="text-6xl font-serif font-bold text-white mb-10 tracking-tighter leading-none">Su Propiedad Merece un Marketing de Clase Mundial.</h2>
+          <p className="text-[#666] text-xl font-light mb-16 leading-relaxed">
+            No solo vendemos casas; vendemos historias, inversión y exclusividad. Miguel Angel Pérez utiliza una red privada de compradores de ultra-lujo y estrategias digitales de vanguardia.
+          </p>
+          <button 
+            onClick={() => setLeadContext('Venta de Propiedad Especializada')}
+            className="btn-luxury-gold text-black px-16 py-6 text-[10px] font-black uppercase tracking-[0.4em] shadow-2xl"
+          >
+            Iniciar Valuación Premium
+          </button>
+        </motion.div>
+      </div>
+      
+      {/* TESTIMONIALS SLIDER (SIMPLIFIED) */}
+      <div className="bg-[#0a0a0a] mt-32 py-32">
+        <div className="container mx-auto px-6">
+          <h3 className="text-center text-white font-serif text-3xl mb-20 tracking-tighter">Resultados Comprobados</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            {TESTIMONIOS.map(test => (
+              <div key={test.id} className="bg-black p-12 border border-white/5 flex gap-8 items-center">
+                <img src={test.foto} className="w-20 h-20 rounded-full object-cover grayscale" alt={test.nombre} />
+                <div>
+                  <p className="text-white italic text-lg mb-4">"{test.comentario}"</p>
+                  <p className="text-[#D4AF37] font-bold text-xs tracking-widest">{test.nombre}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+
+  return (
+    <div className="min-h-screen bg-[#050505] selection:bg-[#D4AF37] selection:text-black">
+      {/* HEADER */}
+      <header className="fixed top-0 w-full z-[100] bg-[#050505]/90 backdrop-blur-xl border-b border-white/5 h-24 transition-all">
+        <div className="container mx-auto px-6 h-full flex items-center justify-between">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="flex flex-col cursor-pointer group"
+            onClick={() => navigateTo('home')}
+          >
+            <span className="text-white text-xl font-serif font-bold tracking-tighter group-hover:text-[#D4AF37] transition-colors">MIGUEL ANGEL PÉREZ</span>
+            <span className="text-[#D4AF37] text-[8px] uppercase tracking-[0.5em] font-bold">El Chef Inmobiliario</span>
+          </motion.div>
+
+          {/* Desktop Nav */}
+          <nav className="hidden lg:flex items-center gap-10 text-[10px] font-bold text-white uppercase tracking-widest">
+            <button onClick={() => navigateTo('home')} className={`nav-link ${currentView === 'home' ? 'text-[#D4AF37]' : ''}`}>{t.nav_home}</button>
+            <button onClick={() => navigateTo('catalog')} className={`nav-link ${currentView === 'catalog' ? 'text-[#D4AF37]' : ''}`}>{t.nav_properties}</button>
+            <button onClick={() => navigateTo('sell')} className={`nav-link ${currentView === 'sell' ? 'text-[#D4AF37]' : ''}`}>{t.nav_sell}</button>
+          </nav>
+
+          <div className="flex items-center gap-6">
+            <button 
+              onClick={toggleLanguage}
+              className="text-white/40 hover:text-[#D4AF37] transition-colors text-[9px] font-bold uppercase tracking-widest border border-white/10 px-4 py-2"
+            >
+              {t.lang_btn}
+            </button>
+
+            <a 
+              href="https://wa.me/14377768395"
+              target="_blank"
+              className="btn-luxury-gold text-black px-6 py-3 text-[10px] font-black uppercase tracking-widest flex items-center gap-2"
+            >
+              <MessageCircle className="w-4 h-4" />
+              <span className="hidden sm:inline">{t.nav_cta}</span>
+            </a>
+
+            <button className="lg:hidden text-white" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* MOBILE MENU */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }}
+            className="fixed inset-0 z-[200] bg-black p-10 flex flex-col justify-center items-center gap-12"
+          >
+            <button className="absolute top-10 right-10 text-white" onClick={() => setIsMenuOpen(false)}>
+              <X className="w-8 h-8" />
+            </button>
+            <button onClick={() => navigateTo('home')} className="text-3xl font-serif text-white uppercase tracking-tighter">Inicio</button>
+            <button onClick={() => navigateTo('catalog')} className="text-3xl font-serif text-white uppercase tracking-tighter">Propiedades</button>
+            <button onClick={() => navigateTo('sell')} className="text-3xl font-serif text-white uppercase tracking-tighter">Vender</button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* VIEW CONTENT */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentView}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          {currentView === 'home' && renderHome()}
+          {currentView === 'catalog' && renderCatalog()}
+          {currentView === 'sell' && renderSell()}
+        </motion.div>
+      </AnimatePresence>
+
+      {/* FOOTER */}
       <footer className="bg-[#050505] pt-32 pb-16 border-t border-white/5">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-16 mb-24">
-            <div className="col-span-1 md:col-span-1">
-              <h3 className="text-white font-serif font-bold text-xl mb-8">MIGUEL ANGEL PÉREZ</h3>
-              <p className="text-[#A0A0A0] text-xs leading-relaxed uppercase tracking-widest">
-                HG Hola Group Property Advisors. Liderazgo y excelencia en Real Estate de Ultra-Lujo.
-              </p>
-              <div className="flex gap-4 mt-8">
-                  <a href="https://instagram.com" target="_blank" className="w-10 h-10 border border-white/10 flex items-center justify-center text-[#A0A0A0] hover:text-[#D4AF37] hover:border-[#D4AF37] transition-all">
-                      <Instagram className="w-4 h-4" />
-                  </a>
-                  <a href="https://linkedin.com" target="_blank" className="w-10 h-10 border border-white/10 flex items-center justify-center text-[#A0A0A0] hover:text-[#D4AF37] hover:border-[#D4AF37] transition-all">
-                      <Linkedin className="w-4 h-4" />
-                  </a>
-                  <a href="https://facebook.com" target="_blank" className="w-10 h-10 border border-white/10 flex items-center justify-center text-[#A0A0A0] hover:text-[#D4AF37] hover:border-[#D4AF37] transition-all">
-                      <Facebook className="w-4 h-4" />
-                  </a>
-              </div>
+            <div>
+              <h3 className="text-white font-serif font-bold text-xl mb-6 tracking-tighter">MIGUEL ANGEL PÉREZ</h3>
+              <p className="text-[#444] text-[10px] uppercase tracking-widest leading-loose">HG Hola Group Property Advisors. Discreción y Liderazgo en el sector de lujo.</p>
             </div>
             <div>
-              <h4 className="text-white font-bold text-[10px] uppercase tracking-[0.3em] mb-8">{t.footer_offices}</h4>
-              <div className="space-y-4">
-                  <div className="flex items-start gap-4 cursor-pointer hover:opacity-80 transition-opacity" onClick={() => window.open('https://maps.google.com', '_blank')}>
-                      <MapPin className="w-4 h-4 text-[#D4AF37] mt-1 shrink-0" />
-                      <p className="text-[#A0A0A0] text-xs leading-loose uppercase tracking-wider">
-                        Presidente Masaryk 120<br/>
-                        Polanco, Ciudad de México<br/>
-                        CP 11560
-                      </p>
-                  </div>
-              </div>
+              <h4 className="text-white text-[10px] font-black tracking-widest uppercase mb-6">{t.footer_offices}</h4>
+              <p className="text-[#666] text-[10px] uppercase tracking-widest leading-loose">Presidente Masaryk 120, Polanco<br/>CDMX, 11560</p>
             </div>
             <div>
-              <h4 className="text-white font-bold text-[10px] uppercase tracking-[0.3em] mb-8">{t.footer_care}</h4>
-              <div className="space-y-4">
-                  <a href="tel:525512345678" className="flex items-center gap-4 text-[#A0A0A0] text-xs leading-loose hover:text-[#D4AF37] group">
-                      <Phone className="w-4 h-4 text-[#D4AF37]" />
-                      <span>+52 55 1234 5678</span>
-                  </a>
-                  <a href="mailto:private@hola-group.mx" className="flex items-center gap-4 text-[#A0A0A0] text-xs leading-loose hover:text-[#D4AF37] group">
-                      <Mail className="w-4 h-4 text-[#D4AF37]" />
-                      <span>private@hola-group.mx</span>
-                  </a>
-              </div>
+              <h4 className="text-white text-[10px] font-black tracking-widest uppercase mb-6">{t.footer_care}</h4>
+              <p className="text-[#666] text-[10px] uppercase tracking-widest leading-loose">+52 55 1234 5678<br/>private@hola-group.mx</p>
             </div>
-            <div>
-              <h4 className="text-white font-bold text-[10px] uppercase tracking-[0.3em] mb-8">{t.footer_social}</h4>
-              <div className="flex flex-col gap-4 text-[#A0A0A0] text-[10px] font-bold uppercase tracking-widest">
-                <a href="#" className="hover:text-[#D4AF37] flex items-center gap-2 transition-colors">Instagram</a>
-                <a href="#" className="hover:text-[#D4AF37] flex items-center gap-2 transition-colors">LinkedIn</a>
-                <a href="#" className="hover:text-[#D4AF37] flex items-center gap-2 transition-colors">Facebook</a>
-              </div>
-            </div>
-          </div>
-          
-          <div className="pt-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-[9px] text-white/30 uppercase tracking-[0.4em] font-bold">
-            <p>© 2024 Miguel Angel Pérez | HG Hola Group. Todos los derechos reservados.</p>
-            <div className="flex gap-12 mt-8 md:mt-0">
-              <a href="#" onClick={(e) => { e.preventDefault(); setLeadContext(t.footer_legal); }} className="hover:text-white transition-colors">{t.footer_legal}</a>
-              <span>Socio AMPI Certificado</span>
+            <div className="flex gap-4">
+               <Instagram className="w-5 h-5 text-[#444] hover:text-[#D4AF37] cursor-pointer transition-colors" />
+               <Linkedin className="w-5 h-5 text-[#444] hover:text-[#D4AF37] cursor-pointer transition-colors" />
+               <Facebook className="w-5 h-5 text-[#444] hover:text-[#D4AF37] cursor-pointer transition-colors" />
             </div>
           </div>
         </div>
@@ -544,133 +405,121 @@ const App: React.FC = () => {
 
       {/* LEAD MODAL */}
       <AnimatePresence>
-      {leadContext && (
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[300] flex items-center justify-center p-6"
-        >
-          <div className="absolute inset-0 bg-black/90 backdrop-blur-md" onClick={() => setLeadContext(null)}></div>
+        {leadContext && (
           <motion.div 
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
-            className="bg-[#111] max-w-md w-full p-12 relative z-10 border border-[#D4AF37]/20 rounded-none shadow-2xl"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[300] flex items-center justify-center p-6 bg-black/95 backdrop-blur-xl"
           >
-            <button onClick={() => setLeadContext(null)} className="absolute top-6 right-6 text-[#A0A0A0] hover:text-white text-2xl">×</button>
-            <h2 className="text-2xl font-serif font-bold text-white mb-2 uppercase tracking-tighter">{leadStatus === 'success' ? (language === 'es' ? 'Recibido' : 'Received') : leadContext}</h2>
-            
-            {leadStatus === 'success' ? (
-              <div className="text-center py-10">
-                <div className="text-5xl mb-6">✨</div>
-                <p className="text-[#A0A0A0] text-sm uppercase tracking-widest leading-relaxed">Miguel Angel Pérez se pondrá en contacto con usted personalmente.</p>
-              </div>
-            ) : (
-              <form onSubmit={handleLeadSubmit} className="space-y-8 mt-10">
-                <div className="space-y-2">
-                  <label className="text-[9px] uppercase font-bold text-[#666] tracking-widest">Nombre Completo</label>
-                  <input type="text" required className="w-full border-b border-white/10 py-3 text-sm outline-none focus:border-[#D4AF37] bg-transparent text-white" />
+            <div className="absolute inset-0" onClick={() => setLeadContext(null)}></div>
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              className="bg-[#111] max-w-lg w-full p-16 relative border border-[#D4AF37]/20 shadow-2xl"
+            >
+              <button onClick={() => setLeadContext(null)} className="absolute top-6 right-6 text-white/40 hover:text-white"><X className="w-6 h-6" /></button>
+              <h2 className="text-3xl font-serif font-bold text-white mb-2 tracking-tighter uppercase">{leadStatus === 'success' ? 'Solicitud Enviada' : leadContext}</h2>
+              
+              {leadStatus === 'success' ? (
+                <div className="text-center py-10">
+                  <Sparkles className="w-12 h-12 text-[#D4AF37] mx-auto mb-6" />
+                  <p className="text-[#888] text-[11px] uppercase tracking-widest leading-loose">Un asesor concierge se pondrá en contacto con usted en breve.</p>
                 </div>
-                <div className="space-y-2">
-                  <label className="text-[9px] uppercase font-bold text-[#666] tracking-widest">WhatsApp</label>
-                  <input type="tel" required className="w-full border-b border-white/10 py-3 text-sm outline-none focus:border-[#D4AF37] bg-transparent text-white" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[9px] uppercase font-bold text-[#666] tracking-widest">Email</label>
-                  <input type="email" required className="w-full border-b border-white/10 py-3 text-sm outline-none focus:border-[#D4AF37] bg-transparent text-white" />
-                </div>
-                <button 
-                  type="submit" 
-                  disabled={leadStatus === 'sending'}
-                  className="w-full bg-[#D4AF37] text-black py-5 font-bold uppercase tracking-[0.3em] text-[10px] hover:bg-white transition-all shadow-xl"
-                >
-                  {leadStatus === 'sending' ? 'PROCESANDO...' : (language === 'es' ? 'SOLICITAR CONTACTO' : 'REQUEST CONTACT')}
-                </button>
-              </form>
-            )}
+              ) : (
+                <form onSubmit={handleLeadSubmit} className="space-y-10 mt-12">
+                  <div className="space-y-2">
+                    <label className="text-[9px] uppercase font-black text-[#444] tracking-widest">Nombre</label>
+                    <input required type="text" className="w-full bg-transparent border-b border-white/10 py-3 text-white outline-none focus:border-[#D4AF37]" />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[9px] uppercase font-black text-[#444] tracking-widest">WhatsApp</label>
+                    <input required type="tel" className="w-full bg-transparent border-b border-white/10 py-3 text-white outline-none focus:border-[#D4AF37]" />
+                  </div>
+                  <button type="submit" className="w-full btn-luxury-gold py-6 text-[10px] font-black uppercase tracking-[0.4em] text-black">
+                    {leadStatus === 'sending' ? 'Enviando...' : 'Solicitar Acceso Privado'}
+                  </button>
+                </form>
+              )}
+            </motion.div>
           </motion.div>
-        </motion.div>
-      )}
+        )}
       </AnimatePresence>
 
       {/* PROPERTY DETAIL MODAL */}
       <AnimatePresence>
-      {selectedProperty && (
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[300] flex items-center justify-center p-6"
-        >
-          <div className="absolute inset-0 bg-black/95 backdrop-blur-xl" onClick={() => setSelectedProperty(null)}></div>
+        {selectedProperty && (
           <motion.div 
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 50, opacity: 0 }}
-            className="bg-[#111] max-w-6xl w-full max-h-[90vh] overflow-y-auto relative z-10 grid grid-cols-1 lg:grid-cols-2 shadow-2xl border border-white/5"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[300] flex items-center justify-center p-6 bg-black/98"
           >
-            <div className="h-[400px] lg:h-full relative overflow-hidden">
-                <img src={selectedProperty.img} className="w-full h-full object-cover" alt={selectedProperty.titulo} />
-                <button onClick={() => setSelectedProperty(null)} className="absolute top-8 left-8 bg-black/50 p-4 hover:bg-[#D4AF37] hover:text-black text-white transition-all duration-500">
-                    <X className="w-6 h-6" />
-                </button>
-            </div>
-            <div className="p-10 lg:p-20 flex flex-col bg-[#111]">
-                <span className="text-[#D4AF37] font-bold text-[10px] uppercase tracking-[0.6em] mb-4">{selectedProperty.zona}</span>
-                <h2 className="text-4xl lg:text-5xl font-serif font-bold text-white mb-6 leading-tight">{selectedProperty.titulo}</h2>
-                <div className="flex items-center justify-between mb-12 pb-8 border-b border-white/5">
-                   <p className="text-3xl font-bold text-[#D4AF37]">{FORMAT_PRICE(selectedProperty.precio)}</p>
-                   <span className="px-4 py-1 border border-[#D4AF37] text-[#D4AF37] text-[10px] font-bold uppercase tracking-widest">{selectedProperty.operacion}</span>
-                </div>
+            <div className="absolute inset-0" onClick={() => setSelectedProperty(null)}></div>
+            <motion.div 
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              className="bg-[#0a0a0a] max-w-6xl w-full max-h-[90vh] overflow-y-auto relative grid grid-cols-1 lg:grid-cols-2 shadow-2xl border border-white/5"
+            >
+              <button onClick={() => setSelectedProperty(null)} className="absolute top-8 left-8 z-10 bg-black/50 p-4 text-white hover:bg-[#D4AF37] hover:text-black transition-all">
+                <X className="w-6 h-6" />
+              </button>
+              <div className="h-[400px] lg:h-full relative overflow-hidden">
+                  <img src={selectedProperty.img} className="w-full h-full object-cover" alt={selectedProperty.titulo} />
+              </div>
+              <div className="p-12 lg:p-20 flex flex-col">
+                  <span className="text-[#D4AF37] font-black text-[10px] uppercase tracking-[0.5em] mb-4">{selectedProperty.zona}</span>
+                  <h2 className="text-4xl lg:text-6xl font-serif font-bold text-white mb-8 tracking-tighter">{selectedProperty.titulo}</h2>
+                  <p className="text-4xl font-bold text-[#D4AF37] mb-12">{FORMAT_PRICE(selectedProperty.precio)}</p>
+                  <p className="text-[#888] text-xl font-light italic leading-relaxed mb-12">"{selectedProperty.descripcion}"</p>
+                  
+                  <div className="grid grid-cols-3 gap-8 py-10 border-y border-white/5 mb-12">
+                      <div className="text-center">
+                          <p className="text-white text-2xl font-serif">{selectedProperty.recamaras}</p>
+                          <p className="text-[#444] text-[8px] uppercase font-bold tracking-widest">{t.card_rooms}</p>
+                      </div>
+                      <div className="text-center">
+                          <p className="text-white text-2xl font-serif">{selectedProperty.banos}</p>
+                          <p className="text-[#444] text-[8px] uppercase font-bold tracking-widest">{t.card_baths}</p>
+                      </div>
+                      <div className="text-center">
+                          <p className="text-white text-2xl font-serif">{selectedProperty.metros}</p>
+                          <p className="text-[#444] text-[8px] uppercase font-bold tracking-widest">M²</p>
+                      </div>
+                  </div>
 
-                <p className="text-[#A0A0A0] text-lg leading-relaxed font-light mb-12 italic">"{selectedProperty.descripcion}"</p>
-                
-                <div className="grid grid-cols-3 gap-10 mb-12 py-10 border-y border-white/5">
-                    <div className="text-center">
-                        <p className="text-white text-2xl font-serif mb-2">{selectedProperty.recamaras}</p>
-                        <p className="text-[#A0A0A0] text-[9px] font-bold uppercase tracking-widest">{t.card_rooms}</p>
-                    </div>
-                    <div className="text-center">
-                        <p className="text-white text-2xl font-serif mb-2">{selectedProperty.banos}</p>
-                        <p className="text-[#A0A0A0] text-[9px] font-bold uppercase tracking-widest">{t.card_baths}</p>
-                    </div>
-                    <div className="text-center">
-                        <p className="text-white text-2xl font-serif mb-2">{selectedProperty.metros}</p>
-                        <p className="text-[#A0A0A0] text-[9px] font-bold uppercase tracking-widest">M²</p>
-                    </div>
-                </div>
-
-                <div className="flex flex-wrap gap-3 mb-12">
-                    {selectedProperty.caracteristicas.map((c, i) => (
-                        <span key={i} className="px-5 py-2 bg-white/5 border border-white/5 text-[9px] font-bold uppercase tracking-widest text-[#A0A0A0]">✓ {c}</span>
-                    ))}
-                </div>
-
-                <div className="mt-auto grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <button 
-                        onClick={() => {
-                            setLeadContext(`Agenda Privada: ${selectedProperty.titulo}`);
-                            setSelectedProperty(null);
-                        }}
-                        className="bg-[#D4AF37] text-black py-5 font-bold text-[10px] uppercase tracking-[0.4em] hover:bg-white transition-all shadow-xl"
-                    >
+                  <div className="mt-auto flex flex-col sm:flex-row gap-6">
+                      <button 
+                        onClick={() => { setLeadContext(`Interés: ${selectedProperty.titulo}`); setSelectedProperty(null); }}
+                        className="flex-grow btn-luxury-gold py-6 text-[10px] font-black uppercase tracking-widest text-black"
+                      >
                         {t.modal_request_btn}
-                    </button>
-                    <a 
-                        href={`https://wa.me/14377768395?text=Deseo información exclusiva sobre ${selectedProperty.titulo}`}
+                      </button>
+                      <a 
+                        href={`https://wa.me/14377768395?text=Más información de ${selectedProperty.titulo}`}
                         target="_blank"
-                        className="border border-white/20 text-white py-5 font-bold text-[10px] uppercase tracking-[0.4em] flex items-center justify-center gap-4 hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all"
-                    >
+                        className="flex-grow flex items-center justify-center gap-4 bg-white/5 border border-white/10 text-white py-6 text-[10px] font-black uppercase tracking-widest hover:bg-[#D4AF37] hover:text-black transition-all"
+                      >
                         <MessageCircle className="w-4 h-4" />
-                        {t.modal_whatsapp_btn}
-                    </a>
-                </div>
-            </div>
+                        WHATSAPP
+                      </a>
+                  </div>
+              </div>
+            </motion.div>
           </motion.div>
-        </motion.div>
-      )}
+        )}
       </AnimatePresence>
+
+      {/* FLOATING CONCIERGE BUTTON */}
+      <div className="fixed bottom-10 right-10 z-[150] group">
+        <a 
+          href="https://wa.me/14377768395" 
+          target="_blank"
+          className="concierge-float w-16 h-16 bg-[#D4AF37] rounded-full flex items-center justify-center text-black shadow-2xl hover:scale-110 transition-transform"
+        >
+          <Headphones className="w-7 h-7" />
+        </a>
+      </div>
     </div>
   );
 };
