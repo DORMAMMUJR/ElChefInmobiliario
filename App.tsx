@@ -11,16 +11,20 @@ import {
   Menu, 
   X, 
   Globe, 
-  MessageCircle,
-  Phone,
-  Mail,
-  MapPin,
-  Sparkles,
-  ChevronDown,
-  ArrowRight,
-  Headphones,
-  Search,
-  ArrowLeft
+  MessageCircle, 
+  Phone, 
+  Mail, 
+  MapPin, 
+  Sparkles, 
+  ChevronDown, 
+  ArrowRight, 
+  Headphones, 
+  Maximize2,
+  Bed,
+  Bath,
+  CheckCircle2,
+  FileText,
+  Info
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -31,7 +35,6 @@ const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<View>('home');
   const t = TRANSLATIONS[language];
 
-  // Fix: Added missing toggleLanguage function
   const toggleLanguage = () => {
     setLanguage(prev => (prev === 'es' ? 'en' : 'es'));
   };
@@ -105,7 +108,6 @@ const App: React.FC = () => {
 
   const renderHome = () => (
     <>
-      {/* HERO SECTION */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <motion.div 
           initial={{ scale: 1.1, opacity: 0 }}
@@ -119,8 +121,7 @@ const App: React.FC = () => {
             alt="Main Architecture"
           />
         </motion.div>
-        {/* Subtle gradient instead of heavy black overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/10"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A192F] via-[#0A192F]/40 to-black/10"></div>
         
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
@@ -145,7 +146,6 @@ const App: React.FC = () => {
         </motion.div>
       </section>
 
-      {/* QUICK STATS / TRUST */}
       <section className="py-32 bg-[#050505]">
         <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-20">
           {SERVICIOS.map((serv, index) => (
@@ -181,7 +181,7 @@ const App: React.FC = () => {
              <select 
               value={filters.operacion}
               onChange={(e) => setFilters({...filters, operacion: e.target.value})}
-              className="bg-black/40 border border-white/10 px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-white outline-none focus:border-[#D4AF37]"
+              className="bg-[#0A192F]/60 border border-white/10 px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-white outline-none focus:border-[#D4AF37]"
              >
                 <option value="todos">Todas las Operaciones</option>
                 <option value="Venta">Venta</option>
@@ -190,7 +190,7 @@ const App: React.FC = () => {
              <select 
               value={filters.tipo}
               onChange={(e) => setFilters({...filters, tipo: e.target.value})}
-              className="bg-black/40 border border-white/10 px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-white outline-none focus:border-[#D4AF37]"
+              className="bg-[#0A192F]/60 border border-white/10 px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-white outline-none focus:border-[#D4AF37]"
              >
                 <option value="todos">Todos los Tipos</option>
                 <option value="Casa">Casa</option>
@@ -199,7 +199,6 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        {/* AI SEARCH IN CATALOG */}
         <div className="mb-16 p-8 bg-white/[0.02] border border-white/5">
            <form onSubmit={handleAISearch} className="flex gap-4">
              <input 
@@ -278,7 +277,6 @@ const App: React.FC = () => {
         </motion.div>
       </div>
       
-      {/* TESTIMONIALS SLIDER (SIMPLIFIED) */}
       <div className="bg-[#0a0a0a] mt-32 py-32">
         <div className="container mx-auto px-6">
           <h3 className="text-center text-white font-serif text-3xl mb-20 tracking-tighter">Resultados Comprobados</h3>
@@ -300,8 +298,7 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#050505] selection:bg-[#D4AF37] selection:text-black">
-      {/* HEADER */}
-      <header className="fixed top-0 w-full z-[100] bg-[#050505]/90 backdrop-blur-xl border-b border-white/5 h-24 transition-all">
+      <header className="fixed top-0 w-full z-[100] bg-[#0A192F]/90 backdrop-blur-xl border-b border-white/5 h-24 transition-all">
         <div className="container mx-auto px-6 h-full flex items-center justify-between">
           <motion.div 
             initial={{ opacity: 0 }}
@@ -313,7 +310,6 @@ const App: React.FC = () => {
             <span className="text-[#D4AF37] text-[8px] uppercase tracking-[0.5em] font-bold">El Chef Inmobiliario</span>
           </motion.div>
 
-          {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-10 text-[10px] font-bold text-white uppercase tracking-widest">
             <button onClick={() => navigateTo('home')} className={`nav-link ${currentView === 'home' ? 'text-[#D4AF37]' : ''}`}>{t.nav_home}</button>
             <button onClick={() => navigateTo('catalog')} className={`nav-link ${currentView === 'catalog' ? 'text-[#D4AF37]' : ''}`}>{t.nav_properties}</button>
@@ -344,14 +340,13 @@ const App: React.FC = () => {
         </div>
       </header>
 
-      {/* MOBILE MENU */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div 
             initial={{ opacity: 0, x: '100%' }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
-            className="fixed inset-0 z-[200] bg-black p-10 flex flex-col justify-center items-center gap-12"
+            className="fixed inset-0 z-[200] bg-[#0A192F] p-10 flex flex-col justify-center items-center gap-12"
           >
             <button className="absolute top-10 right-10 text-white" onClick={() => setIsMenuOpen(false)}>
               <X className="w-8 h-8" />
@@ -363,7 +358,6 @@ const App: React.FC = () => {
         )}
       </AnimatePresence>
 
-      {/* VIEW CONTENT */}
       <AnimatePresence mode="wait">
         <motion.div
           key={currentView}
@@ -378,7 +372,6 @@ const App: React.FC = () => {
         </motion.div>
       </AnimatePresence>
 
-      {/* FOOTER */}
       <footer className="bg-[#050505] pt-32 pb-16 border-t border-white/5">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-16 mb-24">
@@ -403,20 +396,19 @@ const App: React.FC = () => {
         </div>
       </footer>
 
-      {/* LEAD MODAL */}
       <AnimatePresence>
         {leadContext && (
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[300] flex items-center justify-center p-6 bg-black/95 backdrop-blur-xl"
+            className="fixed inset-0 z-[300] flex items-center justify-center p-6 bg-[#0A192F]/95 backdrop-blur-xl"
           >
             <div className="absolute inset-0" onClick={() => setLeadContext(null)}></div>
             <motion.div 
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              className="bg-[#111] max-w-lg w-full p-16 relative border border-[#D4AF37]/20 shadow-2xl"
+              className="bg-[#112240] max-w-lg w-full p-16 relative border border-[#D4AF37]/20 shadow-2xl"
             >
               <button onClick={() => setLeadContext(null)} className="absolute top-6 right-6 text-white/40 hover:text-white"><X className="w-6 h-6" /></button>
               <h2 className="text-3xl font-serif font-bold text-white mb-2 tracking-tighter uppercase">{leadStatus === 'success' ? 'Solicitud Enviada' : leadContext}</h2>
@@ -446,62 +438,137 @@ const App: React.FC = () => {
         )}
       </AnimatePresence>
 
-      {/* PROPERTY DETAIL MODAL */}
       <AnimatePresence>
         {selectedProperty && (
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[300] flex items-center justify-center p-6 bg-black/98"
+            className="fixed inset-0 z-[300] flex items-center justify-center p-4 md:p-6 lg:p-12 glass-navy"
           >
             <div className="absolute inset-0" onClick={() => setSelectedProperty(null)}></div>
             <motion.div 
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              className="bg-[#0a0a0a] max-w-6xl w-full max-h-[90vh] overflow-y-auto relative grid grid-cols-1 lg:grid-cols-2 shadow-2xl border border-white/5"
+              initial={{ y: 50, scale: 0.95, opacity: 0 }}
+              animate={{ y: 0, scale: 1, opacity: 1 }}
+              exit={{ y: 50, scale: 0.95, opacity: 0 }}
+              className="bg-[#0A192F] max-w-7xl w-full max-h-[95vh] lg:max-h-[85vh] overflow-hidden relative grid grid-cols-1 lg:grid-cols-12 shadow-[0_0_80px_rgba(0,0,0,0.8)] border border-[#D4AF37]/40 rounded-sm"
             >
-              <button onClick={() => setSelectedProperty(null)} className="absolute top-8 left-8 z-10 bg-black/50 p-4 text-white hover:bg-[#D4AF37] hover:text-black transition-all">
+              {/* Close Button - More visible and premium */}
+              <button 
+                onClick={() => setSelectedProperty(null)} 
+                className="absolute top-6 right-6 z-[310] bg-[#0A192F] border border-[#D4AF37]/50 p-3 text-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#0A192F] transition-all rounded-full shadow-xl"
+              >
                 <X className="w-6 h-6" />
               </button>
-              <div className="h-[400px] lg:h-full relative overflow-hidden">
-                  <img src={selectedProperty.img} className="w-full h-full object-cover" alt={selectedProperty.titulo} />
-              </div>
-              <div className="p-12 lg:p-20 flex flex-col">
-                  <span className="text-[#D4AF37] font-black text-[10px] uppercase tracking-[0.5em] mb-4">{selectedProperty.zona}</span>
-                  <h2 className="text-4xl lg:text-6xl font-serif font-bold text-white mb-8 tracking-tighter">{selectedProperty.titulo}</h2>
-                  <p className="text-4xl font-bold text-[#D4AF37] mb-12">{FORMAT_PRICE(selectedProperty.precio)}</p>
-                  <p className="text-[#888] text-xl font-light italic leading-relaxed mb-12">"{selectedProperty.descripcion}"</p>
+
+              {/* Left: Multimedia Section */}
+              <div className="lg:col-span-5 relative h-[350px] lg:h-full overflow-hidden bg-black/40">
+                  <motion.img 
+                    initial={{ scale: 1.2 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 1.5 }}
+                    src={selectedProperty.img} 
+                    className="w-full h-full object-cover" 
+                    alt={selectedProperty.titulo} 
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A192F] via-transparent to-black/20"></div>
                   
-                  <div className="grid grid-cols-3 gap-8 py-10 border-y border-white/5 mb-12">
-                      <div className="text-center">
-                          <p className="text-white text-2xl font-serif">{selectedProperty.recamaras}</p>
-                          <p className="text-[#444] text-[8px] uppercase font-bold tracking-widest">{t.card_rooms}</p>
+                  {/* Property Status Badges */}
+                  <div className="absolute bottom-8 left-8 flex flex-col gap-3">
+                    <span className="px-5 py-2 bg-[#D4AF37] text-[#0A192F] text-[10px] font-black uppercase tracking-[0.2em] shadow-lg inline-block w-fit">
+                        {selectedProperty.operacion}
+                    </span>
+                    <span className="px-5 py-2 bg-white/10 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-[0.2em] border border-white/20 shadow-lg inline-block w-fit">
+                        {selectedProperty.tipo}
+                    </span>
+                  </div>
+              </div>
+
+              {/* Right: Detailed Information Section */}
+              <div className="lg:col-span-7 p-8 lg:p-14 flex flex-col overflow-y-auto navy-gradient custom-scrollbar">
+                  {/* Location & Title Header */}
+                  <div className="mb-10">
+                    <div className="flex items-center gap-3 text-[#D4AF37] font-black text-[10px] uppercase tracking-[0.6em] mb-4">
+                        <MapPin className="w-3.5 h-3.5" />
+                        {selectedProperty.zona}
+                    </div>
+                    <h2 className="text-4xl lg:text-5xl font-serif font-bold text-white mb-6 tracking-tighter leading-tight border-l-4 border-[#D4AF37] pl-6 uppercase">
+                        {selectedProperty.titulo}
+                    </h2>
+                    <div className="flex items-center gap-6">
+                        <p className="text-4xl lg:text-5xl font-bold text-[#D4AF37] tracking-tighter">
+                            {FORMAT_PRICE(selectedProperty.precio)}
+                        </p>
+                        <div className="h-10 w-[1px] bg-white/10"></div>
+                        <p className="text-[#666] text-[10px] font-black uppercase tracking-widest">Valor de Inversión</p>
+                    </div>
+                  </div>
+
+                  {/* Feature Box (The requested attribute comparison section) */}
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-10">
+                      <div className="bg-[#112240] p-5 border border-white/5 flex flex-col items-center justify-center text-center transition-all hover:border-[#D4AF37]/20">
+                          <Bed className="w-5 h-5 text-[#D4AF37] mb-2" />
+                          <p className="text-white text-xl font-serif">{selectedProperty.recamaras}</p>
+                          <p className="text-[#444] text-[8px] font-black uppercase tracking-[0.2em]">{t.card_rooms}</p>
                       </div>
-                      <div className="text-center">
-                          <p className="text-white text-2xl font-serif">{selectedProperty.banos}</p>
-                          <p className="text-[#444] text-[8px] uppercase font-bold tracking-widest">{t.card_baths}</p>
+                      <div className="bg-[#112240] p-5 border border-white/5 flex flex-col items-center justify-center text-center transition-all hover:border-[#D4AF37]/20">
+                          <Bath className="w-5 h-5 text-[#D4AF37] mb-2" />
+                          <p className="text-white text-xl font-serif">{selectedProperty.banos}</p>
+                          <p className="text-[#444] text-[8px] font-black uppercase tracking-[0.2em]">{t.card_baths}</p>
                       </div>
-                      <div className="text-center">
-                          <p className="text-white text-2xl font-serif">{selectedProperty.metros}</p>
-                          <p className="text-[#444] text-[8px] uppercase font-bold tracking-widest">M²</p>
+                      <div className="bg-[#112240] p-5 border border-white/5 flex flex-col items-center justify-center text-center transition-all hover:border-[#D4AF37]/20">
+                          <Maximize2 className="w-5 h-5 text-[#D4AF37] mb-2" />
+                          <p className="text-white text-xl font-serif">{selectedProperty.metros}</p>
+                          <p className="text-[#444] text-[8px] font-black uppercase tracking-[0.2em]">Metros²</p>
+                      </div>
+                      <div className="bg-[#112240] p-5 border border-white/5 flex flex-col items-center justify-center text-center transition-all hover:border-[#D4AF37]/20">
+                          <Info className="w-5 h-5 text-[#D4AF37] mb-2" />
+                          <p className="text-white text-[9px] font-black uppercase tracking-tighter leading-tight">Clase A+</p>
+                          <p className="text-[#444] text-[8px] font-black uppercase tracking-[0.2em]">Categoría</p>
                       </div>
                   </div>
 
-                  <div className="mt-auto flex flex-col sm:flex-row gap-6">
+                  {/* Executive Summary / Short Description Attribute */}
+                  <div className="mb-10">
+                    <div className="flex items-center gap-3 mb-4">
+                        <FileText className="w-4 h-4 text-[#D4AF37]" />
+                        <span className="text-white text-[10px] font-black uppercase tracking-[0.4em]">Resumen Ejecutivo</span>
+                    </div>
+                    <div className="bg-white/[0.02] p-8 border-l-2 border-[#D4AF37] shadow-inner">
+                        <p className="text-white/70 text-lg font-light leading-relaxed font-serif tracking-wide">
+                          {selectedProperty.descripcion}
+                        </p>
+                    </div>
+                  </div>
+
+                  {/* Premium Characteristics Grid */}
+                  <div className="mb-12">
+                      <span className="text-[#444] text-[9px] font-black uppercase tracking-[0.5em] mb-6 block">Especificaciones de Lujo</span>
+                      <div className="grid grid-cols-2 gap-y-4 gap-x-8">
+                          {selectedProperty.caracteristicas.map((c, i) => (
+                              <div key={i} className="flex items-center gap-4 text-white/50 group">
+                                <CheckCircle2 className="w-4 h-4 text-[#D4AF37] shrink-0 opacity-40 group-hover:opacity-100 transition-opacity" />
+                                <span className="text-[10px] font-bold uppercase tracking-widest transition-colors group-hover:text-white">{c}</span>
+                              </div>
+                          ))}
+                      </div>
+                  </div>
+
+                  {/* Fixed Call to Action Footer within Modal */}
+                  <div className="mt-auto pt-10 border-t border-white/5 grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <button 
-                        onClick={() => { setLeadContext(`Interés: ${selectedProperty.titulo}`); setSelectedProperty(null); }}
-                        className="flex-grow btn-luxury-gold py-6 text-[10px] font-black uppercase tracking-widest text-black"
+                        onClick={() => { setLeadContext(`Interés Corporativo: ${selectedProperty.titulo}`); setSelectedProperty(null); }}
+                        className="btn-luxury-gold text-[#0A192F] py-6 text-[11px] font-black uppercase tracking-[0.4em] shadow-xl hover:shadow-[#D4AF37]/30 transition-all"
                       >
                         {t.modal_request_btn}
                       </button>
                       <a 
-                        href={`https://wa.me/14377768395?text=Más información de ${selectedProperty.titulo}`}
+                        href={`https://wa.me/14377768395?text=Hola Miguel, solicito el dossier completo de la propiedad: ${selectedProperty.titulo}`}
                         target="_blank"
-                        className="flex-grow flex items-center justify-center gap-4 bg-white/5 border border-white/10 text-white py-6 text-[10px] font-black uppercase tracking-widest hover:bg-[#D4AF37] hover:text-black transition-all"
+                        className="flex items-center justify-center gap-4 bg-[#112240] border border-[#D4AF37]/40 text-white py-6 text-[11px] font-black uppercase tracking-[0.4em] hover:bg-[#D4AF37] hover:text-[#0A192F] transition-all duration-500 group shadow-lg"
                       >
-                        <MessageCircle className="w-4 h-4" />
-                        WHATSAPP
+                        <MessageCircle className="w-5 h-5 text-[#D4AF37] group-hover:text-[#0A192F]" />
+                        Consultoría Vía WhatsApp
                       </a>
                   </div>
               </div>
@@ -510,12 +577,11 @@ const App: React.FC = () => {
         )}
       </AnimatePresence>
 
-      {/* FLOATING CONCIERGE BUTTON */}
       <div className="fixed bottom-10 right-10 z-[150] group">
         <a 
           href="https://wa.me/14377768395" 
           target="_blank"
-          className="concierge-float w-16 h-16 bg-[#D4AF37] rounded-full flex items-center justify-center text-black shadow-2xl hover:scale-110 transition-transform"
+          className="concierge-float w-16 h-16 bg-[#D4AF37] rounded-full flex items-center justify-center text-[#0A192F] shadow-2xl hover:scale-110 transition-transform"
         >
           <Headphones className="w-7 h-7" />
         </a>
