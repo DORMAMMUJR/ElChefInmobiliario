@@ -15,6 +15,29 @@
             --gold-dark: #B8860B;
             --white: #FFFFFF;
         }
+        
+        /* Restauración y Estética de Scrollbars */
+        html {
+            scrollbar-width: thin;
+            scrollbar-color: var(--gold) var(--emerald-deep);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--emerald-deep);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 20px;
+            border: 2px solid var(--emerald-deep);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gold-dark);
+        }
+
         body {
             font-family: 'Montserrat', sans-serif; 
             background-color: var(--emerald-deep); 
@@ -23,28 +46,28 @@
             overflow-x: hidden;
             background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
         }
+        
         .font-serif { font-family: 'Playfair Display', serif; }
         
+        /* Botones Refinados */
         .btn-luxury-gold {
             background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 50%, var(--gold-dark) 100%);
             background-size: 200% auto; 
-            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-            border: 1px solid rgba(255, 255, 255, 0.3); 
-            display: inline-flex; 
-            align-items: center; 
-            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            border: 1px solid rgba(255, 255, 255, 0.2); 
             color: #000;
+            font-weight: 800;
         }
         .btn-luxury-gold:hover { 
             background-position: right center; 
-            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.4); 
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3); 
             transform: translateY(-2px);
         }
         
         .btn-luxury-outline {
             border: 1px solid var(--gold); 
             color: var(--gold); 
-            transition: all 0.4s ease; 
+            transition: all 0.3s ease; 
             background: transparent;
         }
         .btn-luxury-outline:hover { 
@@ -54,18 +77,21 @@
         
         #scroll-progress { 
             position: fixed; top: 0; left: 0; height: 3px; 
-            background: var(--gold); z-index: 200; transition: width 0.1s; 
+            background: var(--gold); z-index: 250; transition: width 0.1s; 
         }
         
+        /* Tarjetas con proporciones corregidas */
         .luxury-card { 
-            background: var(--emerald); 
-            border: 1px solid rgba(212, 175, 55, 0.1); 
-            transition: all 0.4s ease;
+            background: rgba(2, 44, 34, 0.5); 
+            border: 1px solid rgba(212, 175, 55, 0.15); 
+            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            backdrop-filter: blur(10px);
         }
         .luxury-card:hover { 
-            transform: translateY(-8px); 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            transform: translateY(-10px); 
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
             border-color: var(--gold);
+            background: rgba(2, 44, 34, 0.8);
         }
         
         .nav-link { position: relative; letter-spacing: 0.15em; transition: color 0.3s; }
@@ -73,18 +99,18 @@
             content: ''; position: absolute; bottom: -4px; left: 50%; width: 0; 
             height: 1px; background: var(--gold); transition: 0.3s; transform: translateX(-50%); 
         }
+        .nav-link:hover { color: var(--gold); }
         .nav-link:hover::after { width: 100%; }
         
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--emerald-deep); }
-        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
-        
-        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--gold); }
-        
         .glass-emerald { 
-            background: rgba(1, 28, 22, 0.9); 
-            backdrop-filter: blur(20px); 
+            background: rgba(1, 28, 22, 0.95); 
+            backdrop-filter: blur(25px); 
+        }
+
+        /* Utilidad para evitar que las secciones se vean vacías */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.3), transparent);
         }
     </style>
 <script type="importmap">
