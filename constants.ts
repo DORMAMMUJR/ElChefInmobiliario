@@ -15,7 +15,7 @@ export const PROPIEDADES: Property[] = [
         tag: "Exclusivo",
         descripcion: "Una joya arquitectónica en el corazón de Polanco. Techos de doble altura, acabados en mármol y un jardín privado de ensueño.",
         caracteristicas: ["Seguridad Privada", "Cava", "Jardín Zen", "Paneles Solares"],
-        img: "https://images.unsplash.com/photo-1600585154340-be6191dae10c?auto=format&fit=crop&q=80&w=800"
+        img: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=90&w=1200"
     },
     {
         id: 2,
@@ -30,7 +30,7 @@ export const PROPIEDADES: Property[] = [
         tag: "Luxury",
         descripcion: "Vistas panorámicas inigualables. Elevador directo al piso y amenidades de clase mundial en el edificio.",
         caracteristicas: ["Alberca", "Gimnasio", "Roof Garden Privado", "Helipuerto"],
-        img: "https://images.unsplash.com/photo-1600607687940-47a04b629733?auto=format&fit=crop&q=80&w=800"
+        img: "https://images.unsplash.com/photo-1600607687940-47a04b629733?auto=format&fit=crop&q=90&w=1200"
     },
     {
         id: 3,
@@ -45,7 +45,7 @@ export const PROPIEDADES: Property[] = [
         tag: "Modern",
         descripcion: "Vivir en las nubes. Departamento con terraza privada y acceso directo al Parque La Mexicana.",
         caracteristicas: ["Acceso Parque", "Cine Privado", "Vigilancia"],
-        img: "https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&q=80&w=800"
+        img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=90&w=1200"
     }
 ];
 
@@ -54,14 +54,14 @@ export const TESTIMONIOS: Testimonial[] = [
     id: 1,
     nombre: "Familia Rodríguez",
     rol: "Inversionistas",
-    foto: "https://images.unsplash.com/photo-1511367461989-f85a21fda167?auto=format&fit=crop&q=80&w=200",
+    foto: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=90&w=400",
     comentario: "Miguel Angel nos ayudó a encontrar la casa de nuestros sueños en tiempo récord. El servicio fue impecable."
   },
   {
     id: 2,
     nombre: "Roberto Silva",
     rol: "CEO Tech Global",
-    foto: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=200",
+    foto: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=90&w=400",
     comentario: "La discreción y profesionalismo de HG Hola Group es inigualable en el mercado inmobiliario de lujo."
   }
 ];
@@ -114,10 +114,10 @@ export const TRANSLATIONS = {
     footer_care: "Atención a Clientes",
     footer_social: "Redes Sociales",
     footer_legal: "Aviso de Privacidad",
-    // Fix: Added missing translation keys for AI search and property modal
     filter_ai_placeholder: "Describe lo que buscas (ej: Casa en Polanco con 3 recámaras)...",
     modal_request_btn: "SOLICITAR INFORMACIÓN",
-    modal_whatsapp_btn: "CONTACTAR POR WHATSAPP"
+    modal_whatsapp_btn: "WHATSAPP",
+    lang_btn: "EN"
   },
   en: {
     nav_home: "Home",
@@ -128,7 +128,7 @@ export const TRANSLATIONS = {
     nav_cta: "WHATSAPP",
     hero_title: "Your New Beginning is Here",
     hero_subtitle: "Ultra-luxury advice by Miguel Angel Pérez",
-    hero_cta: "View development",
+    hero_cta: "Explore projects",
     filter_op: "Operation",
     filter_type: "Type",
     filter_loc: "Location",
@@ -140,15 +140,15 @@ export const TRANSLATIONS = {
     section_properties: "New Developments",
     card_rooms: "Beds",
     card_baths: "Baths",
-    card_details: "View Details",
+    card_details: "Details",
     footer_offices: "Offices",
-    footer_care: "Customer Care",
+    footer_care: "Customer Support",
     footer_social: "Social Media",
     footer_legal: "Privacy Policy",
-    // Fix: Added missing translation keys for AI search and property modal
-    filter_ai_placeholder: "Describe what you're looking for (e.g., House in Polanco with 3 bedrooms)...",
-    modal_request_btn: "REQUEST INFORMATION",
-    modal_whatsapp_btn: "CONTACT VIA WHATSAPP"
+    filter_ai_placeholder: "Describe your dream home (e.g., Loft in Polanco)...",
+    modal_request_btn: "REQUEST INFO",
+    modal_whatsapp_btn: "WHATSAPP",
+    lang_btn: "ES"
   }
 };
 
