@@ -16,26 +16,37 @@
             --white: #FFFFFF;
         }
         
-        /* Global Scrollbar Restoration */
+        /* Interactive Luxury Scrollbars */
         html {
             scrollbar-width: thin;
             scrollbar-color: var(--gold) var(--emerald-deep);
+            scroll-behavior: smooth;
         }
 
+        /* Standard Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
+            transition: width 0.3s ease;
         }
         ::-webkit-scrollbar-track {
             background: var(--emerald-deep);
         }
         ::-webkit-scrollbar-thumb {
-            background: var(--gold);
+            background: rgba(212, 175, 55, 0.4);
             border-radius: 20px;
             border: 2px solid var(--emerald-deep);
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--gold-dark);
+        
+        /* Interactive: Enlarge scrollbar when hovering the scrollable area */
+        body:hover::-webkit-scrollbar, 
+        .custom-scrollbar:hover::-webkit-scrollbar {
+            width: 14px;
+        }
+        body:hover::-webkit-scrollbar-thumb,
+        .custom-scrollbar:hover::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border: 3px solid var(--emerald-deep);
         }
 
         /* Element Specific Scrollbar Utility */
@@ -45,13 +56,13 @@
             overflow-y: auto;
         }
         .custom-scrollbar::-webkit-scrollbar {
-            width: 5px;
+            width: 6px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.02);
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: var(--gold);
+            background: rgba(212, 175, 55, 0.3);
             border-radius: 10px;
         }
 
@@ -62,6 +73,12 @@
             -webkit-font-smoothing: antialiased; 
             overflow-x: hidden;
             background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+            /* Responsively increased base font size */
+            font-size: 16px;
+        }
+        
+        @media (min-width: 768px) {
+            body { font-size: 18px; }
         }
         
         .font-serif { font-family: 'Playfair Display', serif; }
@@ -76,51 +93,50 @@
         }
         .btn-luxury-gold:hover { 
             background-position: right center; 
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3); 
-            transform: translateY(-2px);
-        }
-        
-        .btn-luxury-outline {
-            border: 1px solid var(--gold); 
-            color: var(--gold); 
-            transition: all 0.3s ease; 
-            background: transparent;
-        }
-        .btn-luxury-outline:hover { 
-            color: var(--emerald-deep); 
-            background: var(--gold); 
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4); 
+            transform: translateY(-3px);
         }
         
         #scroll-progress { 
-            position: fixed; top: 0; left: 0; height: 3px; 
+            position: fixed; top: 0; left: 0; height: 5px; 
             background: var(--gold); z-index: 250; transition: width 0.1s; 
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
         }
         
-        /* Refined Card Proportions for Desktop and Mobile */
         .luxury-card { 
-            background: rgba(2, 44, 34, 0.4); 
-            border: 1px solid rgba(212, 175, 55, 0.1); 
+            background: rgba(2, 44, 34, 0.5); 
+            border: 1px solid rgba(212, 175, 55, 0.15); 
             transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(15px);
         }
         .luxury-card:hover { 
-            transform: translateY(-8px); 
-            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+            transform: translateY(-12px); 
+            box-shadow: 0 35px 70px rgba(0,0,0,0.7);
             border-color: var(--gold);
-            background: rgba(2, 44, 34, 0.7);
+            background: rgba(2, 44, 34, 0.8);
         }
         
-        .nav-link { position: relative; letter-spacing: 0.15em; transition: color 0.3s; }
-        .nav-link::after { 
-            content: ''; position: absolute; bottom: -4px; left: 50%; width: 0; 
-            height: 1px; background: var(--gold); transition: 0.3s; transform: translateX(-50%); 
+        /* Navigation Hover Effect: Letter enlargement */
+        .nav-link { 
+            position: relative; 
+            letter-spacing: 0.12em; 
+            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            display: inline-block;
         }
-        .nav-link:hover { color: var(--gold); }
+        .nav-link::after { 
+            content: ''; position: absolute; bottom: -8px; left: 50%; width: 0; 
+            height: 2px; background: var(--gold); transition: 0.3s; transform: translateX(-50%); 
+        }
+        .nav-link:hover { 
+            color: var(--gold); 
+            transform: scale(1.15); /* Menu items enlarge */
+            letter-spacing: 0.2em;
+        }
         .nav-link:hover::after { width: 100%; }
         
         .glass-emerald { 
-            background: rgba(1, 28, 22, 0.92); 
-            backdrop-filter: blur(20px); 
+            background: rgba(1, 28, 22, 0.96); 
+            backdrop-filter: blur(30px); 
         }
     </style>
 <script type="importmap">
