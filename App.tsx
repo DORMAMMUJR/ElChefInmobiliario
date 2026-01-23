@@ -54,6 +54,15 @@ const App: React.FC = () => {
   const [aiExplanation, setAiExplanation] = useState<string | null>(null);
   const [leadStatus, setLeadStatus] = useState<'idle' | 'sending' | 'success'>('idle');
 
+  // Bloquear scroll del body cuando un modal está abierto
+  useEffect(() => {
+    if (selectedProperty || leadContext || isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [selectedProperty, leadContext, isMenuOpen]);
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentView]);
@@ -340,7 +349,7 @@ const App: React.FC = () => {
         </div>
       </header>
 
-      {/* MOBILE MENU - Con scroll habilitado */}
+      {/* MOBILE MENU */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div 
@@ -406,83 +415,88 @@ const App: React.FC = () => {
         </div>
       </footer>
 
-      {/* LEAD MODAL - Con scroll interno para formularios largos en móviles */}
+      {/* LEAD MODAL */}
       <AnimatePresence>
         {leadContext && (
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[300] flex items-center justify-center p-4 md:p-6 bg-[#0A192F]/95 backdrop-blur-xl overflow-y-auto"
+            className="fixed inset-0 z-[300] flex items-center justify-center p-4 bg-[#0A192F]/95 backdrop-blur-xl overflow-y-auto"
           >
             <div className="absolute inset-0" onClick={() => setLeadContext(null)}></div>
             <motion.div 
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              className="bg-[#112240] max-w-lg w-full p-8 md:p-16 relative border border-[#D4AF37]/20 shadow-2xl max-h-[90vh] overflow-y-auto custom-scrollbar"
+              className="bg-[#112240] max-w-lg w-full p-8 md:p-16 relative border border-[#D4AF37]/20 shadow-2xl my-8 overflow-hidden flex flex-col max-h-[90vh]"
             >
-              <button onClick={() => setLeadContext(null)} className="absolute top-6 right-6 text-white/40 hover:text-white p-2"><X className="w-6 h-6" /></button>
-              <h2 className="text-2xl md:text-3xl font-serif font-bold text-white mb-2 tracking-tighter uppercase">{leadStatus === 'success' ? 'Solicitud Enviada' : leadContext}</h2>
+              <button onClick={() => setLeadContext(null)} className="absolute top-6 right-6 text-white/40 hover:text-white p-2 z-10"><X className="w-6 h-6" /></button>
               
-              {leadStatus === 'success' ? (
-                <div className="text-center py-10">
-                  <Sparkles className="w-12 h-12 text-[#D4AF37] mx-auto mb-6" />
-                  <p className="text-[#888] text-[11px] uppercase tracking-widest leading-loose">Un asesor concierge se pondrá en contacto con usted en breve.</p>
-                </div>
-              ) : (
-                <form onSubmit={handleLeadSubmit} className="space-y-8 mt-10">
-                  <div className="space-y-2">
-                    <label className="text-[9px] uppercase font-black text-[#444] tracking-widest">Nombre Completo</label>
-                    <input required type="text" className="w-full bg-transparent border-b border-white/10 py-3 text-white outline-none focus:border-[#D4AF37] transition-colors" />
+              <div className="overflow-y-auto custom-scrollbar flex-1 pr-2">
+                <h2 className="text-2xl md:text-3xl font-serif font-bold text-white mb-2 tracking-tighter uppercase">{leadStatus === 'success' ? 'Solicitud Enviada' : leadContext}</h2>
+                
+                {leadStatus === 'success' ? (
+                  <div className="text-center py-10">
+                    <Sparkles className="w-12 h-12 text-[#D4AF37] mx-auto mb-6" />
+                    <p className="text-[#888] text-[11px] uppercase tracking-widest leading-loose">Un asesor concierge se pondrá en contacto con usted en breve.</p>
                   </div>
-                  <div className="space-y-2">
-                    <label className="text-[9px] uppercase font-black text-[#444] tracking-widest">Email Corporativo</label>
-                    <input required type="email" className="w-full bg-transparent border-b border-white/10 py-3 text-white outline-none focus:border-[#D4AF37] transition-colors" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[9px] uppercase font-black text-[#444] tracking-widest">WhatsApp / Celular</label>
-                    <input required type="tel" className="w-full bg-transparent border-b border-white/10 py-3 text-white outline-none focus:border-[#D4AF37] transition-colors" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[9px] uppercase font-black text-[#444] tracking-widest">Mensaje (Opcional)</label>
-                    <textarea className="w-full bg-transparent border-b border-white/10 py-3 text-white outline-none focus:border-[#D4AF37] transition-colors min-h-[100px]"></textarea>
-                  </div>
-                  <button type="submit" className="w-full btn-luxury-gold py-6 text-[10px] font-black uppercase tracking-[0.4em] text-black">
-                    {leadStatus === 'sending' ? 'Enviando...' : 'Solicitar Acceso Privado'}
-                  </button>
-                </form>
-              )}
+                ) : (
+                  <form onSubmit={handleLeadSubmit} className="space-y-8 mt-10">
+                    <div className="space-y-2">
+                      <label className="text-[9px] uppercase font-black text-[#444] tracking-widest">Nombre Completo</label>
+                      <input required type="text" className="w-full bg-transparent border-b border-white/10 py-3 text-white outline-none focus:border-[#D4AF37] transition-colors" />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[9px] uppercase font-black text-[#444] tracking-widest">Email Corporativo</label>
+                      <input required type="email" className="w-full bg-transparent border-b border-white/10 py-3 text-white outline-none focus:border-[#D4AF37] transition-colors" />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[9px] uppercase font-black text-[#444] tracking-widest">WhatsApp / Celular</label>
+                      <input required type="tel" className="w-full bg-transparent border-b border-white/10 py-3 text-white outline-none focus:border-[#D4AF37] transition-colors" />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[9px] uppercase font-black text-[#444] tracking-widest">Mensaje (Opcional)</label>
+                      <textarea className="w-full bg-transparent border-b border-white/10 py-3 text-white outline-none focus:border-[#D4AF37] transition-colors min-h-[100px]"></textarea>
+                    </div>
+                    <button type="submit" className="w-full btn-luxury-gold py-6 text-[10px] font-black uppercase tracking-[0.4em] text-black sticky bottom-0">
+                      {leadStatus === 'sending' ? 'Enviando...' : 'Solicitar Acceso Privado'}
+                    </button>
+                  </form>
+                )}
+              </div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* PROPERTY DETAIL MODAL - Con scroll mejorado en contenedores */}
+      {/* PROPERTY DETAIL MODAL - FINAL FIX FOR SCROLLING ISSUES */}
       <AnimatePresence>
         {selectedProperty && (
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[300] flex items-center justify-center p-4 md:p-6 lg:p-12 glass-navy overflow-y-auto"
+            className="fixed inset-0 z-[300] flex items-center justify-center p-4 md:p-10 glass-navy overflow-y-auto backdrop-blur-md"
           >
+            {/* Click on backdrop to close */}
             <div className="absolute inset-0" onClick={() => setSelectedProperty(null)}></div>
+            
             <motion.div 
               initial={{ y: 50, scale: 0.95, opacity: 0 }}
               animate={{ y: 0, scale: 1, opacity: 1 }}
               exit={{ y: 50, scale: 0.95, opacity: 0 }}
-              className="bg-[#0A192F] max-w-7xl w-full max-h-[90vh] lg:max-h-[85vh] overflow-hidden relative grid grid-cols-1 lg:grid-cols-12 shadow-[0_0_80px_rgba(0,0,0,0.8)] border border-[#D4AF37]/40 rounded-sm"
+              className="bg-[#0A192F] max-w-7xl w-full h-auto lg:h-[85vh] overflow-hidden relative grid grid-cols-1 lg:grid-cols-12 shadow-[0_0_80px_rgba(0,0,0,0.8)] border border-[#D4AF37]/40 rounded-sm my-auto"
             >
-              {/* Close Button */}
+              {/* Floating Close Button */}
               <button 
                 onClick={() => setSelectedProperty(null)} 
-                className="absolute top-4 right-4 md:top-6 md:right-6 z-[310] bg-[#0A192F] border border-[#D4AF37]/50 p-2 md:p-3 text-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#0A192F] transition-all rounded-full shadow-xl"
+                className="absolute top-6 right-6 z-[320] bg-[#0A192F] border border-[#D4AF37]/50 p-3 text-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#0A192F] transition-all rounded-full shadow-2xl"
               >
-                <X className="w-5 h-5 md:w-6 md:h-6" />
+                <X className="w-6 h-6" />
               </button>
 
-              {/* Left: Multimedia Section */}
-              <div className="lg:col-span-5 relative h-[250px] md:h-[350px] lg:h-full overflow-hidden bg-black/40">
+              {/* Left Column: Image (Static Height on Mobile, Full on Desktop) */}
+              <div className="lg:col-span-5 relative h-[300px] md:h-[450px] lg:h-full overflow-hidden bg-black/40">
                   <motion.img 
                     initial={{ scale: 1.2 }}
                     animate={{ scale: 1 }}
@@ -493,7 +507,7 @@ const App: React.FC = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0A192F] via-transparent to-black/20"></div>
                   
-                  <div className="absolute bottom-6 left-6 flex flex-col gap-3">
+                  <div className="absolute bottom-8 left-8 flex flex-col gap-3">
                     <span className="px-5 py-2 bg-[#D4AF37] text-[#0A192F] text-[10px] font-black uppercase tracking-[0.2em] shadow-lg inline-block w-fit">
                         {selectedProperty.operacion}
                     </span>
@@ -503,87 +517,96 @@ const App: React.FC = () => {
                   </div>
               </div>
 
-              {/* Right: Detailed Information Section - Scroll Habilitado */}
-              <div className="lg:col-span-7 p-6 md:p-14 flex flex-col overflow-y-auto navy-gradient custom-scrollbar max-h-[60vh] lg:max-h-full">
-                  <div className="mb-8">
-                    <div className="flex items-center gap-3 text-[#D4AF37] font-black text-[10px] uppercase tracking-[0.6em] mb-4">
-                        <MapPin className="w-3.5 h-3.5" />
-                        {selectedProperty.zona}
-                    </div>
-                    <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-6 tracking-tighter leading-tight border-l-4 border-[#D4AF37] pl-4 md:pl-6 uppercase">
-                        {selectedProperty.titulo}
-                    </h2>
-                    <div className="flex flex-wrap items-center gap-4 md:gap-6">
-                        <p className="text-3xl md:text-5xl font-bold text-[#D4AF37] tracking-tighter">
-                            {FORMAT_PRICE(selectedProperty.precio)}
-                        </p>
-                        <div className="hidden md:block h-10 w-[1px] bg-white/10"></div>
-                        <p className="text-[#666] text-[10px] font-black uppercase tracking-widest">Valor de Inversión</p>
-                    </div>
+              {/* Right Column: Detailed Information Section (THE SCROLLABLE AREA) */}
+              <div className="lg:col-span-7 flex flex-col h-full navy-gradient relative min-h-0">
+                  <div className="p-8 md:p-14 overflow-y-auto flex-1 custom-scrollbar w-full">
+                      {/* Header Info */}
+                      <div className="mb-10">
+                        <div className="flex items-center gap-3 text-[#D4AF37] font-black text-[10px] uppercase tracking-[0.6em] mb-4">
+                            <MapPin className="w-3.5 h-3.5" />
+                            {selectedProperty.zona}
+                        </div>
+                        <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-6 tracking-tighter leading-tight border-l-4 border-[#D4AF37] pl-6 uppercase">
+                            {selectedProperty.titulo}
+                        </h2>
+                        <div className="flex flex-wrap items-center gap-6">
+                            <p className="text-3xl md:text-5xl font-bold text-[#D4AF37] tracking-tighter">
+                                {FORMAT_PRICE(selectedProperty.precio)}
+                            </p>
+                            <div className="hidden md:block h-10 w-[1px] bg-white/10"></div>
+                            <p className="text-[#666] text-[10px] font-black uppercase tracking-widest">Valor de Inversión</p>
+                        </div>
+                      </div>
+
+                      {/* Attributes Comparison */}
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+                          <div className="bg-[#112240] p-5 border border-white/5 flex flex-col items-center justify-center text-center transition-all hover:border-[#D4AF37]/20">
+                              <Bed className="w-5 h-5 text-[#D4AF37] mb-2" />
+                              <p className="text-white text-xl font-serif">{selectedProperty.recamaras}</p>
+                              <p className="text-[#444] text-[8px] font-black uppercase tracking-[0.2em]">{t.card_rooms}</p>
+                          </div>
+                          <div className="bg-[#112240] p-5 border border-white/5 flex flex-col items-center justify-center text-center transition-all hover:border-[#D4AF37]/20">
+                              <Bath className="w-5 h-5 text-[#D4AF37] mb-2" />
+                              <p className="text-white text-xl font-serif">{selectedProperty.banos}</p>
+                              <p className="text-[#444] text-[8px] font-black uppercase tracking-[0.2em]">{t.card_baths}</p>
+                          </div>
+                          <div className="bg-[#112240] p-5 border border-white/5 flex flex-col items-center justify-center text-center transition-all hover:border-[#D4AF37]/20">
+                              <Maximize2 className="w-5 h-5 text-[#D4AF37] mb-2" />
+                              <p className="text-white text-xl font-serif">{selectedProperty.metros}</p>
+                              <p className="text-[#444] text-[8px] font-black uppercase tracking-[0.2em]">Metros²</p>
+                          </div>
+                          <div className="bg-[#112240] p-5 border border-white/5 flex flex-col items-center justify-center text-center transition-all hover:border-[#D4AF37]/20">
+                              <Info className="w-5 h-5 text-[#D4AF37] mb-2" />
+                              <p className="text-white text-[9px] font-black uppercase tracking-tighter leading-tight">Clase A+</p>
+                              <p className="text-[#444] text-[8px] font-black uppercase tracking-[0.2em]">Categoría</p>
+                          </div>
+                      </div>
+
+                      {/* Executive Summary Block */}
+                      <div className="mb-10">
+                        <div className="flex items-center gap-3 mb-4">
+                            <FileText className="w-4 h-4 text-[#D4AF37]" />
+                            <span className="text-white text-[10px] font-black uppercase tracking-[0.4em]">Resumen Ejecutivo</span>
+                        </div>
+                        <div className="bg-white/[0.02] p-8 border-l-2 border-[#D4AF37] shadow-inner">
+                            <p className="text-white/70 text-lg font-light leading-relaxed font-serif tracking-wide">
+                              {selectedProperty.descripcion}
+                            </p>
+                        </div>
+                      </div>
+
+                      {/* Characteristics Grid */}
+                      <div className="mb-12">
+                          <span className="text-[#444] text-[9px] font-black uppercase tracking-[0.5em] mb-6 block">Especificaciones de Lujo</span>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8">
+                              {selectedProperty.caracteristicas.map((c, i) => (
+                                  <div key={i} className="flex items-center gap-4 text-white/50 group">
+                                    <CheckCircle2 className="w-4 h-4 text-[#D4AF37] shrink-0 opacity-40 group-hover:opacity-100 transition-opacity" />
+                                    <span className="text-[10px] font-bold uppercase tracking-widest transition-colors group-hover:text-white">{c}</span>
+                                  </div>
+                              ))}
+                          </div>
+                      </div>
                   </div>
 
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-8">
-                      <div className="bg-[#112240] p-4 border border-white/5 flex flex-col items-center justify-center text-center transition-all hover:border-[#D4AF37]/20">
-                          <Bed className="w-5 h-5 text-[#D4AF37] mb-2" />
-                          <p className="text-white text-lg md:text-xl font-serif">{selectedProperty.recamaras}</p>
-                          <p className="text-[#444] text-[8px] font-black uppercase tracking-[0.2em]">{t.card_rooms}</p>
+                  {/* Fixed Bottom Action Panel (Stays at the bottom of the right column) */}
+                  <div className="p-8 md:p-14 border-t border-white/5 bg-[#0A192F]/80 backdrop-blur-xl">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <button 
+                          onClick={() => { setLeadContext(`Interés Directo: ${selectedProperty.titulo}`); setSelectedProperty(null); }}
+                          className="btn-luxury-gold text-[#0A192F] py-6 text-[11px] font-black uppercase tracking-[0.4em] shadow-xl hover:shadow-[#D4AF37]/30 transition-all"
+                        >
+                          {t.modal_request_btn}
+                        </button>
+                        <a 
+                          href={`https://wa.me/14377768395?text=Hola Miguel, solicito el dossier completo de la propiedad: ${selectedProperty.titulo}`}
+                          target="_blank"
+                          className="flex items-center justify-center gap-4 bg-[#112240] border border-[#D4AF37]/40 text-white py-6 text-[11px] font-black uppercase tracking-[0.4em] hover:bg-[#D4AF37] hover:text-[#0A192F] transition-all duration-500 group shadow-lg"
+                        >
+                          <MessageCircle className="w-5 h-5 text-[#D4AF37] group-hover:text-[#0A192F]" />
+                          WHATSAPP PRIVADO
+                        </a>
                       </div>
-                      <div className="bg-[#112240] p-4 border border-white/5 flex flex-col items-center justify-center text-center transition-all hover:border-[#D4AF37]/20">
-                          <Bath className="w-5 h-5 text-[#D4AF37] mb-2" />
-                          <p className="text-white text-lg md:text-xl font-serif">{selectedProperty.banos}</p>
-                          <p className="text-[#444] text-[8px] font-black uppercase tracking-[0.2em]">{t.card_baths}</p>
-                      </div>
-                      <div className="bg-[#112240] p-4 border border-white/5 flex flex-col items-center justify-center text-center transition-all hover:border-[#D4AF37]/20">
-                          <Maximize2 className="w-5 h-5 text-[#D4AF37] mb-2" />
-                          <p className="text-white text-lg md:text-xl font-serif">{selectedProperty.metros}</p>
-                          <p className="text-[#444] text-[8px] font-black uppercase tracking-[0.2em]">Metros²</p>
-                      </div>
-                      <div className="bg-[#112240] p-4 border border-white/5 flex flex-col items-center justify-center text-center transition-all hover:border-[#D4AF37]/20">
-                          <Info className="w-5 h-5 text-[#D4AF37] mb-2" />
-                          <p className="text-white text-[8px] md:text-[9px] font-black uppercase tracking-tighter leading-tight">Clase A+</p>
-                          <p className="text-[#444] text-[8px] font-black uppercase tracking-[0.2em]">Categoría</p>
-                      </div>
-                  </div>
-
-                  <div className="mb-8">
-                    <div className="flex items-center gap-3 mb-4">
-                        <FileText className="w-4 h-4 text-[#D4AF37]" />
-                        <span className="text-white text-[10px] font-black uppercase tracking-[0.4em]">Resumen Ejecutivo</span>
-                    </div>
-                    <div className="bg-white/[0.02] p-6 md:p-8 border-l-2 border-[#D4AF37] shadow-inner">
-                        <p className="text-white/70 text-base md:text-lg font-light leading-relaxed font-serif tracking-wide">
-                          {selectedProperty.descripcion}
-                        </p>
-                    </div>
-                  </div>
-
-                  <div className="mb-10">
-                      <span className="text-[#444] text-[9px] font-black uppercase tracking-[0.5em] mb-6 block">Especificaciones de Lujo</span>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8">
-                          {selectedProperty.caracteristicas.map((c, i) => (
-                              <div key={i} className="flex items-center gap-4 text-white/50 group">
-                                <CheckCircle2 className="w-4 h-4 text-[#D4AF37] shrink-0 opacity-40 group-hover:opacity-100 transition-opacity" />
-                                <span className="text-[10px] font-bold uppercase tracking-widest transition-colors group-hover:text-white">{c}</span>
-                              </div>
-                          ))}
-                      </div>
-                  </div>
-
-                  <div className="mt-auto pt-8 border-t border-white/5 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <button 
-                        onClick={() => { setLeadContext(`Interés Corporativo: ${selectedProperty.titulo}`); setSelectedProperty(null); }}
-                        className="btn-luxury-gold text-[#0A192F] py-5 text-[10px] font-black uppercase tracking-[0.4em] shadow-xl hover:shadow-[#D4AF37]/30 transition-all"
-                      >
-                        {t.modal_request_btn}
-                      </button>
-                      <a 
-                        href={`https://wa.me/14377768395?text=Hola Miguel, solicito el dossier completo de la propiedad: ${selectedProperty.titulo}`}
-                        target="_blank"
-                        className="flex items-center justify-center gap-4 bg-[#112240] border border-[#D4AF37]/40 text-white py-5 text-[10px] font-black uppercase tracking-[0.4em] hover:bg-[#D4AF37] hover:text-[#0A192F] transition-all duration-500 group shadow-lg"
-                      >
-                        <MessageCircle className="w-5 h-5 text-[#D4AF37] group-hover:text-[#0A192F]" />
-                        Consultoría Vía WhatsApp
-                      </a>
                   </div>
               </div>
             </motion.div>
