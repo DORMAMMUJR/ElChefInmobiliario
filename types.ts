@@ -9,6 +9,8 @@ export interface Property {
   recamaras: number;
   banos: number;
   metros: number;
+  // Added to fix property not existing error
+  estacionamientos: number;
   tag: string;
   descripcion: string;
   caracteristicas: string[];
@@ -27,8 +29,11 @@ export interface Testimonial {
   id: number;
   nombre: string;
   foto: string;
-  comentario: string;
+  // Changed from comentario to cita to match App.tsx usage
+  cita: string;
   rol: string;
+  // Added to match App.tsx usage
+  estrellas: number;
 }
 
 export interface Service {
