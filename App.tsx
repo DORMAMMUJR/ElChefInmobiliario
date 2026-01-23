@@ -14,7 +14,10 @@ import {
   MessageCircle,
   Phone,
   Mail,
-  MapPin
+  MapPin,
+  Sparkles,
+  ChevronDown,
+  ArrowRight
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -34,6 +37,7 @@ const App: React.FC = () => {
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
   const [leadContext, setLeadContext] = useState<string | null>(null);
   const [isAIProcessing, setIsAIProcessing] = useState(false);
+  const [aiExplanation, setAiExplanation] = useState<string | null>(null);
   const [leadStatus, setLeadStatus] = useState<'idle' | 'sending' | 'success'>('idle');
 
   // Reveal animation on scroll
@@ -50,7 +54,7 @@ const App: React.FC = () => {
 
     document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
     return () => observer.disconnect();
-  }, [language]); // Re-observe if language changes and elements re-render
+  }, [language]);
 
   const filteredProperties = useMemo(() => {
     return PROPIEDADES.filter(item => {
@@ -66,6 +70,7 @@ const App: React.FC = () => {
     e.preventDefault();
     if (!filters.query?.trim()) return;
     setIsAIProcessing(true);
+    setAiExplanation(null);
     const result = await parseUserSearchIntent(filters.query);
     if (result) {
       setFilters(prev => ({
@@ -74,8 +79,16 @@ const App: React.FC = () => {
         tipo: result.tipo || 'todos',
         precioMax: result.precioMax ? result.precioMax.toString() : '',
       }));
+      if (result.explanation) {
+        setAiExplanation(result.explanation);
+      }
     }
     setIsAIProcessing(false);
+  };
+
+  const handleManualSearch = () => {
+    const section = document.getElementById('inventario');
+    if (section) section.scrollIntoView({ behavior: 'smooth' });
   };
 
   const toggleLanguage = () => setLanguage(prev => prev === 'es' ? 'en' : 'es');
@@ -100,7 +113,8 @@ const App: React.FC = () => {
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="flex flex-col"
+            className="flex flex-col cursor-pointer"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
             <span className="text-white text-lg font-serif font-bold tracking-tighter">MIGUEL ANGEL PÉREZ</span>
             <span className="text-[#D4AF37] text-[9px] uppercase tracking-[0.4em] font-bold">El Chef Inmobiliario</span>
@@ -123,11 +137,6 @@ const App: React.FC = () => {
               <Globe className="w-3 h-3" />
               {t.lang_btn}
             </button>
-
-            <div className="hidden sm:flex flex-col items-end opacity-60">
-                <span className="text-[#D4AF37] text-[10px] font-bold tracking-widest">HG</span>
-                <span className="text-white text-[8px] uppercase tracking-[0.2em]">HolaGroup</span>
-            </div>
 
             <a 
               href="https://wa.me/14377768395"
@@ -207,54 +216,86 @@ const App: React.FC = () => {
           <div className="container mx-auto">
             <div className="bg-[#111] p-8 md:p-12 shadow-luxury border border-white/5">
               <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
-                <div className="flex flex-col gap-2">
-                  <label className="text-[9px] uppercase font-bold text-[#A0A0A0] tracking-widest">{t.filter_op}</label>
-                  <select 
-                    value={filters.operacion}
-                    onChange={(e) => setFilters({...filters, operacion: e.target.value})}
-                    className="w-full border border-white/10 rounded-none p-4 text-sm focus:border-[#D4AF37] outline-none"
-                  >
-                    <option value="todos">{language === 'es' ? 'Cualquiera' : 'Any'}</option>
-                    <option value="Venta">Venta</option>
-                    <option value="Renta">Renta</option>
-                  </select>
+                
+                {/* OPERATION FILTER */}
+                <div className="flex flex-col group">
+                  <label className="text-[9px] uppercase font-bold text-[#666] tracking-[0.3em] mb-2 transition-colors group-hover:text-[#A0A0A0]">
+                    {t.filter_op}
+                  </label>
+                  <div className="relative">
+                    <select 
+                      value={filters.operacion}
+                      onChange={(e) => setFilters({...filters, operacion: e.target.value})}
+                      className="w-full appearance-none bg-black/40 border border-white/10 rounded-none px-5 py-4 text-[11px] font-bold uppercase tracking-widest focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/20 outline-none transition-all cursor-pointer"
+                    >
+                      <option value="todos">{language === 'es' ? 'Cualquiera' : 'Any'}</option>
+                      <option value="Venta">Venta</option>
+                      <option value="Renta">Renta</option>
+                    </select>
+                    <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-3 h-3 text-[#D4AF37] pointer-events-none" />
+                  </div>
                 </div>
-                <div className="flex flex-col gap-2">
-                  <label className="text-[9px] uppercase font-bold text-[#A0A0A0] tracking-widest">{t.filter_type}</label>
-                  <select 
-                    value={filters.tipo}
-                    onChange={(e) => setFilters({...filters, tipo: e.target.value})}
-                    className="w-full border border-white/10 rounded-none p-4 text-sm focus:border-[#D4AF37] outline-none"
-                  >
-                    <option value="todos">{language === 'es' ? 'Cualquiera' : 'Any'}</option>
-                    <option value="Casa">Casa</option>
-                    <option value="Departamento">Departamento</option>
-                  </select>
+
+                {/* TYPE FILTER */}
+                <div className="flex flex-col group">
+                  <label className="text-[9px] uppercase font-bold text-[#666] tracking-[0.3em] mb-2 transition-colors group-hover:text-[#A0A0A0]">
+                    {t.filter_type}
+                  </label>
+                  <div className="relative">
+                    <select 
+                      value={filters.tipo}
+                      onChange={(e) => setFilters({...filters, tipo: e.target.value})}
+                      className="w-full appearance-none bg-black/40 border border-white/10 rounded-none px-5 py-4 text-[11px] font-bold uppercase tracking-widest focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/20 outline-none transition-all cursor-pointer"
+                    >
+                      <option value="todos">{language === 'es' ? 'Cualquiera' : 'Any'}</option>
+                      <option value="Casa">Casa</option>
+                      <option value="Departamento">Departamento</option>
+                    </select>
+                    <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-3 h-3 text-[#D4AF37] pointer-events-none" />
+                  </div>
                 </div>
-                <div className="flex flex-col gap-2">
-                  <label className="text-[9px] uppercase font-bold text-[#A0A0A0] tracking-widest">{t.filter_loc}</label>
-                  <select 
-                    value={filters.zona}
-                    onChange={(e) => setFilters({...filters, zona: e.target.value})}
-                    className="w-full border border-white/10 rounded-none p-4 text-sm focus:border-[#D4AF37] outline-none"
-                  >
-                    <option value="todos">Ciudad de México</option>
-                    {Array.from(new Set(PROPIEDADES.map(p => p.zona))).map(z => (
-                      <option key={z} value={z}>{z}</option>
-                    ))}
-                  </select>
+
+                {/* LOCATION FILTER */}
+                <div className="flex flex-col group">
+                  <label className="text-[9px] uppercase font-bold text-[#666] tracking-[0.3em] mb-2 transition-colors group-hover:text-[#A0A0A0]">
+                    {t.filter_loc}
+                  </label>
+                  <div className="relative">
+                    <select 
+                      value={filters.zona}
+                      onChange={(e) => setFilters({...filters, zona: e.target.value})}
+                      className="w-full appearance-none bg-black/40 border border-white/10 rounded-none px-5 py-4 text-[11px] font-bold uppercase tracking-widest focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/20 outline-none transition-all cursor-pointer"
+                    >
+                      <option value="todos">Ciudad de México</option>
+                      {Array.from(new Set(PROPIEDADES.map(p => p.zona))).map(z => (
+                        <option key={z} value={z}>{z}</option>
+                      ))}
+                    </select>
+                    <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-3 h-3 text-[#D4AF37] pointer-events-none" />
+                  </div>
                 </div>
-                <div className="flex flex-col gap-2">
-                  <label className="text-[9px] uppercase font-bold text-[#A0A0A0] tracking-widest">{t.filter_rooms}</label>
-                  <select className="w-full border border-white/10 rounded-none p-4 text-sm focus:border-[#D4AF37] outline-none">
-                    <option>{language === 'es' ? 'Cualquiera' : 'Any'}</option>
-                    <option>1+</option>
-                    <option>2+</option>
-                    <option>3+</option>
-                  </select>
+
+                {/* ROOMS FILTER */}
+                <div className="flex flex-col group">
+                  <label className="text-[9px] uppercase font-bold text-[#666] tracking-[0.3em] mb-2 transition-colors group-hover:text-[#A0A0A0]">
+                    {t.filter_rooms}
+                  </label>
+                  <div className="relative">
+                    <select className="w-full appearance-none bg-black/40 border border-white/10 rounded-none px-5 py-4 text-[11px] font-bold uppercase tracking-widest focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/20 outline-none transition-all cursor-pointer">
+                      <option>{language === 'es' ? 'Cualquiera' : 'Any'}</option>
+                      <option>1+</option>
+                      <option>2+</option>
+                      <option>3+</option>
+                    </select>
+                    <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-3 h-3 text-[#D4AF37] pointer-events-none" />
+                  </div>
                 </div>
-                <button className="bg-[#D4AF37] text-black font-bold h-[54px] mt-auto flex items-center justify-center gap-3 hover:bg-white transition-all uppercase tracking-[0.2em] text-xs">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+
+                <button 
+                  onClick={handleManualSearch}
+                  className="bg-[#D4AF37] text-black font-bold h-[54px] mt-auto flex items-center justify-center gap-3 hover:bg-white transition-all uppercase tracking-[0.3em] text-[10px]"
+                >
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                   {t.filter_search_btn}
                 </button>
               </div>
@@ -262,17 +303,39 @@ const App: React.FC = () => {
               {/* AI INTEGRATION */}
               <div className="mt-8 pt-8 border-t border-white/5">
                 <form onSubmit={handleAISearch} className="flex gap-4">
-                  <input 
-                    type="text" 
-                    value={filters.query}
-                    onChange={(e) => setFilters({...filters, query: e.target.value})}
-                    placeholder={t.filter_ai_placeholder}
-                    className="flex-grow border border-white/10 py-3 px-6 text-xs outline-none focus:border-[#D4AF37] bg-black/20"
-                  />
-                  <button type="submit" className="text-[#D4AF37] text-[10px] font-bold uppercase tracking-widest hover:text-white transition-colors">
+                  <div className="flex-grow relative group">
+                    <input 
+                      type="text" 
+                      value={filters.query}
+                      onChange={(e) => setFilters({...filters, query: e.target.value})}
+                      placeholder={t.filter_ai_placeholder}
+                      className="w-full border border-white/10 py-3.5 px-6 pr-10 text-[11px] uppercase tracking-widest outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]/10 bg-black/20 transition-all"
+                    />
+                    <Sparkles className={`absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#D4AF37] ${isAIProcessing ? 'animate-pulse' : 'opacity-30 group-hover:opacity-60'} transition-opacity`} />
+                  </div>
+                  <button type="submit" disabled={isAIProcessing} className="text-[#D4AF37] text-[10px] font-bold uppercase tracking-widest hover:text-white transition-colors">
                     {isAIProcessing ? '...' : 'AI ASSISTANT'}
                   </button>
                 </form>
+
+                <AnimatePresence>
+                  {aiExplanation && (
+                    <motion.div 
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="mt-4 p-4 border-l-2 border-[#D4AF37] bg-white/[0.03] backdrop-blur-sm"
+                    >
+                      <p className="text-[#D4AF37] text-[8px] uppercase font-bold tracking-[0.2em] mb-1 flex items-center gap-2">
+                        <Sparkles className="w-3 h-3" />
+                        {language === 'es' ? 'Análisis IA' : 'AI Interpretation'}
+                      </p>
+                      <p className="text-[#A0A0A0] text-[11px] leading-relaxed italic font-medium">
+                        "{aiExplanation}"
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </div>
           </div>
@@ -308,7 +371,7 @@ const App: React.FC = () => {
         </div>
       </main>
 
-      {/* VENDER SECCIÓN (PLACEHOLDER) */}
+      {/* VENDER SECCIÓN */}
       <section id="vender" className="py-32 bg-[#111] reveal-on-scroll">
         <div className="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div className="relative aspect-square">
@@ -321,9 +384,10 @@ const App: React.FC = () => {
                 <p className="text-[#A0A0A0] text-lg font-light leading-relaxed mb-12 uppercase tracking-widest">Servicio de asesoría estratégica para inmuebles de alto perfil.</p>
                 <button 
                   onClick={() => setLeadContext(t.nav_sell)}
-                  className="bg-[#D4AF37] text-black px-12 py-5 text-[10px] font-bold uppercase tracking-[0.4em] hover:bg-white transition-all"
+                  className="bg-[#D4AF37] text-black px-12 py-5 text-[10px] font-bold uppercase tracking-[0.4em] hover:bg-white transition-all flex items-center gap-4"
                 >
                   Agendar Consultoría
+                  <ArrowRight className="w-4 h-4" />
                 </button>
             </div>
         </div>
@@ -338,10 +402,16 @@ const App: React.FC = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
             {SERVICIOS.map((serv, index) => (
-              <div key={serv.id} className="text-center group reveal-on-scroll" style={{ animationDelay: `${index * 0.2}s` }}>
+              <div 
+                key={serv.id} 
+                className="text-center group reveal-on-scroll cursor-pointer" 
+                style={{ animationDelay: `${index * 0.2}s` }}
+                onClick={() => setLeadContext(`${t.section_services}: ${serv.titulo}`)}
+              >
                 <div className="text-5xl mb-8 group-hover:scale-110 transition-transform duration-500 block">{serv.icono}</div>
                 <h3 className="text-xl font-serif text-[#D4AF37] mb-4">{serv.titulo}</h3>
-                <p className="text-[#A0A0A0] text-sm leading-relaxed max-w-xs mx-auto">{serv.descripcion}</p>
+                <p className="text-[#A0A0A0] text-sm leading-relaxed max-w-xs mx-auto mb-6">{serv.descripcion}</p>
+                <span className="text-[9px] font-bold text-white/40 uppercase tracking-[0.3em] group-hover:text-[#D4AF37] transition-colors">{language === 'es' ? 'Saber más' : 'Learn More'}</span>
               </div>
             ))}
           </div>
@@ -357,8 +427,13 @@ const App: React.FC = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {TESTIMONIOS.map((test, index) => (
-              <div key={test.id} className="bg-[#050505] p-12 border border-white/5 flex flex-col md:flex-row gap-8 items-center md:items-start transition-all hover:border-[#D4AF37]/30 reveal-on-scroll" style={{ animationDelay: `${index * 0.2}s` }}>
-                <img src={test.foto} className="w-24 h-24 rounded-full object-cover border border-[#D4AF37]" alt={test.nombre} />
+              <div 
+                key={test.id} 
+                className="bg-[#050505] p-12 border border-white/5 flex flex-col md:flex-row gap-8 items-center md:items-start transition-all hover:border-[#D4AF37]/30 reveal-on-scroll cursor-pointer group" 
+                style={{ animationDelay: `${index * 0.2}s` }}
+                onClick={() => window.open(`https://wa.me/14377768395?text=Vi el testimonio de ${test.nombre} y quisiera asesoría similar`, '_blank')}
+              >
+                <img src={test.foto} className="w-24 h-24 rounded-full object-cover border border-[#D4AF37] group-hover:scale-105 transition-transform" alt={test.nombre} />
                 <div className="text-center md:text-left">
                   <p className="text-white italic text-lg font-light leading-relaxed mb-6">"{test.comentario}"</p>
                   <h4 className="text-[#D4AF37] font-bold text-sm tracking-widest uppercase">{test.nombre}</h4>
@@ -370,14 +445,14 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* NOSOTROS SECCIÓN (PLACEHOLDER) */}
+      {/* NOSOTROS SECCIÓN */}
       <section id="nosotros" className="py-32 bg-[#050505] reveal-on-scroll">
         <div className="container mx-auto px-6 text-center max-w-4xl">
             <h2 className="text-5xl font-serif font-bold text-white mb-10">La Diferencia es el Detalle</h2>
             <p className="text-[#A0A0A0] text-lg font-light leading-relaxed mb-12 tracking-widest uppercase">
                 Miguel Angel Pérez combina la pasión de un chef con la precisión de un estratega inmobiliario. Cada propiedad es una receta única de arquitectura, inversión y estilo de vida.
             </p>
-            <div className="flex justify-center gap-12">
+            <div className="flex justify-center gap-12 mb-16">
                 <div className="text-center">
                     <p className="text-[#D4AF37] text-4xl font-serif mb-2">15+</p>
                     <p className="text-white text-[9px] uppercase tracking-widest font-bold">Años de Trayectoria</p>
@@ -391,6 +466,12 @@ const App: React.FC = () => {
                     <p className="text-white text-[9px] uppercase tracking-widest font-bold">Referidos</p>
                 </div>
             </div>
+            <button 
+              onClick={() => setLeadContext('Conocer a Miguel Angel')}
+              className="border border-[#D4AF37] text-[#D4AF37] px-12 py-5 text-[10px] font-bold uppercase tracking-[0.4em] hover:bg-[#D4AF37] hover:text-black transition-all"
+            >
+              {language === 'es' ? 'CONOCER MÁS' : 'LEARN MORE'}
+            </button>
         </div>
       </section>
 
@@ -404,13 +485,13 @@ const App: React.FC = () => {
                 HG Hola Group Property Advisors. Liderazgo y excelencia en Real Estate de Ultra-Lujo.
               </p>
               <div className="flex gap-4 mt-8">
-                  <a href="#" className="w-10 h-10 border border-white/10 flex items-center justify-center text-[#A0A0A0] hover:text-[#D4AF37] hover:border-[#D4AF37] transition-all">
+                  <a href="https://instagram.com" target="_blank" className="w-10 h-10 border border-white/10 flex items-center justify-center text-[#A0A0A0] hover:text-[#D4AF37] hover:border-[#D4AF37] transition-all">
                       <Instagram className="w-4 h-4" />
                   </a>
-                  <a href="#" className="w-10 h-10 border border-white/10 flex items-center justify-center text-[#A0A0A0] hover:text-[#D4AF37] hover:border-[#D4AF37] transition-all">
+                  <a href="https://linkedin.com" target="_blank" className="w-10 h-10 border border-white/10 flex items-center justify-center text-[#A0A0A0] hover:text-[#D4AF37] hover:border-[#D4AF37] transition-all">
                       <Linkedin className="w-4 h-4" />
                   </a>
-                  <a href="#" className="w-10 h-10 border border-white/10 flex items-center justify-center text-[#A0A0A0] hover:text-[#D4AF37] hover:border-[#D4AF37] transition-all">
+                  <a href="https://facebook.com" target="_blank" className="w-10 h-10 border border-white/10 flex items-center justify-center text-[#A0A0A0] hover:text-[#D4AF37] hover:border-[#D4AF37] transition-all">
                       <Facebook className="w-4 h-4" />
                   </a>
               </div>
@@ -418,7 +499,7 @@ const App: React.FC = () => {
             <div>
               <h4 className="text-white font-bold text-[10px] uppercase tracking-[0.3em] mb-8">{t.footer_offices}</h4>
               <div className="space-y-4">
-                  <div className="flex items-start gap-4">
+                  <div className="flex items-start gap-4 cursor-pointer hover:opacity-80 transition-opacity" onClick={() => window.open('https://maps.google.com', '_blank')}>
                       <MapPin className="w-4 h-4 text-[#D4AF37] mt-1 shrink-0" />
                       <p className="text-[#A0A0A0] text-xs leading-loose uppercase tracking-wider">
                         Presidente Masaryk 120<br/>
@@ -454,14 +535,14 @@ const App: React.FC = () => {
           <div className="pt-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-[9px] text-white/30 uppercase tracking-[0.4em] font-bold">
             <p>© 2024 Miguel Angel Pérez | HG Hola Group. Todos los derechos reservados.</p>
             <div className="flex gap-12 mt-8 md:mt-0">
-              <a href="#" className="hover:text-white transition-colors">{t.footer_legal}</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); setLeadContext(t.footer_legal); }} className="hover:text-white transition-colors">{t.footer_legal}</a>
               <span>Socio AMPI Certificado</span>
             </div>
           </div>
         </div>
       </footer>
 
-      {/* LEAD MODAL (REUTILIZADO) */}
+      {/* LEAD MODAL */}
       <AnimatePresence>
       {leadContext && (
         <motion.div 
@@ -488,16 +569,16 @@ const App: React.FC = () => {
             ) : (
               <form onSubmit={handleLeadSubmit} className="space-y-8 mt-10">
                 <div className="space-y-2">
-                  <label className="text-[9px] uppercase font-bold text-[#A0A0A0] tracking-widest">Nombre Completo</label>
-                  <input type="text" required className="w-full border-b border-white/10 py-3 text-sm outline-none focus:border-[#D4AF37] bg-transparent" />
+                  <label className="text-[9px] uppercase font-bold text-[#666] tracking-widest">Nombre Completo</label>
+                  <input type="text" required className="w-full border-b border-white/10 py-3 text-sm outline-none focus:border-[#D4AF37] bg-transparent text-white" />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[9px] uppercase font-bold text-[#A0A0A0] tracking-widest">WhatsApp</label>
-                  <input type="tel" required className="w-full border-b border-white/10 py-3 text-sm outline-none focus:border-[#D4AF37] bg-transparent" />
+                  <label className="text-[9px] uppercase font-bold text-[#666] tracking-widest">WhatsApp</label>
+                  <input type="tel" required className="w-full border-b border-white/10 py-3 text-sm outline-none focus:border-[#D4AF37] bg-transparent text-white" />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[9px] uppercase font-bold text-[#A0A0A0] tracking-widest">Email</label>
-                  <input type="email" required className="w-full border-b border-white/10 py-3 text-sm outline-none focus:border-[#D4AF37] bg-transparent" />
+                  <label className="text-[9px] uppercase font-bold text-[#666] tracking-widest">Email</label>
+                  <input type="email" required className="w-full border-b border-white/10 py-3 text-sm outline-none focus:border-[#D4AF37] bg-transparent text-white" />
                 </div>
                 <button 
                   type="submit" 
