@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Property, FilterState } from './types';
 import { PROPIEDADES, TRANSLATIONS, FORMAT_PRICE } from './constants';
@@ -37,10 +36,10 @@ const App: React.FC = () => {
   };
 
   const PANTRY_ITEMS = [
-    { id: 1, name: lang === 'es' ? 'Leche de Reserva Alpina' : 'Alpine Reserve Milk', desc: 'Pureza destilada de los picos más altos.', price: '$12.00', img: 'https://images.unsplash.com/photo-1550583724-1255818c0533?auto=format&fit=crop&q=80&w=400' },
-    { id: 2, name: lang === 'es' ? 'Huevos de Cosecha Dorada' : 'Golden Harvest Eggs', desc: 'Producción orgánica de libre pastoreo.', price: '$24.00', img: 'https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?auto=format&fit=crop&q=80&w=400' },
-    { id: 3, name: lang === 'es' ? 'Pan de Masa Madre Artesanal' : 'Artisan Sourdough Bread', desc: 'Fermentación de 48 horas en horno de piedra.', price: '$18.00', img: 'https://images.unsplash.com/photo-1585478259715-876acc5be8eb?auto=format&fit=crop&q=80&w=400' },
-    { id: 4, name: lang === 'es' ? 'Queso de Trufa Envejecido' : 'Aged Truffle Cheese', desc: 'Curación premium con notas de bosque.', price: '$45.00', img: 'https://images.unsplash.com/photo-1486297678162-ad2a19b05840?auto=format&fit=crop&q=80&w=400' }
+    { id: 1, name: lang === 'es' ? 'Leche de Reserva Alpina' : 'Alpine Reserve Milk', desc: 'Pureza destilada de los picos más altos.', price: '$12.00', img: 'https://images.unsplash.com/photo-155058[...]'},
+    { id: 2, name: lang === 'es' ? 'Huevos de Cosecha Dorada' : 'Golden Harvest Eggs', desc: 'Producción orgánica de libre pastoreo.', price: '$24.00', img: 'https://images.unsplash.com/photo-158272[...]'},
+    { id: 3, name: lang === 'es' ? 'Pan de Masa Madre Artesanal' : 'Artisan Sourdough Bread', desc: 'Fermentación de 48 horas en horno de piedra.', price: '$18.00', img: 'https://images.unsplash.com/[...]'},
+    { id: 4, name: lang === 'es' ? 'Queso de Trufa Envejecido' : 'Aged Truffle Cheese', desc: 'Curación premium con notas de bosque.', price: '$45.00', img: 'https://images.unsplash.com/photo-1486297[...]'},
   ];
 
   return (
@@ -48,9 +47,9 @@ const App: React.FC = () => {
       {/* HEADER - CLEAN ALIGNMENT, NO GAPS */}
       <header className="fixed top-0 w-full z-[100] h-20 border-b border-white/5 backdrop-blur-2xl bg-[#011c16]/90">
         <div className="container mx-auto h-full px-6 lg:px-12 flex justify-between items-center">
-          <div className="flex items-center gap-4 cursor-pointer group" onClick={() => setCurrentView('home')}>
+          <div className="flex items-center gap-4 cursor-pointer group" onClick={() => setCurrentView('home')}>  
             <img 
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=90&w=200" 
+              src="https://raw.githubusercontent.com/DORMAMMUJR/ElChefInmobiliario/2cc29d8f938a67ef925912e1a9133c2882bd4021/WhatsApp%20Image%202026-01-23%20at%204.22.16%20PM.jpeg?token=BZLM3CUFGMYVTUT3HM2743DJOQH64" 
               className="w-12 h-12 rounded-full object-cover border border-[#D4AF37]/40 shadow-xl" 
               alt="" 
             />
@@ -191,11 +190,11 @@ const App: React.FC = () => {
                       <div className="space-y-10 text-left">
                         <div className="group">
                           <label className="text-[10px] font-black text-[#D4AF37] uppercase tracking-widest block mb-4 opacity-40 group-focus-within:opacity-100 transition-opacity">Nombre Titular</label>
-                          <input type="text" className="w-full bg-transparent border-b border-white/10 py-3 outline-none focus:border-[#D4AF37] transition-all text-sm tracking-widest uppercase font-bold text-white" placeholder="SU IDENTIDAD" />
+                          <input type="text" className="w-full bg-transparent border-b border-white/10 py-3 outline-none focus:border-[#D4AF37] transition-all text-sm tracking-widest uppercase font-bold" />
                         </div>
                         <div className="group">
                           <label className="text-[10px] font-black text-[#D4AF37] uppercase tracking-widest block mb-4 opacity-40 group-focus-within:opacity-100 transition-opacity">Canal Directo</label>
-                          <input type="email" className="w-full bg-transparent border-b border-white/10 py-3 outline-none focus:border-[#D4AF37] transition-all text-sm tracking-widest uppercase font-bold text-white" placeholder="EMAIL@ESTATE.COM" />
+                          <input type="email" className="w-full bg-transparent border-b border-white/10 py-3 outline-none focus:border-[#D4AF37] transition-all text-sm tracking-widest uppercase font-bold" />
                         </div>
                         <button onClick={() => setConciergeStep('store')} className="w-full btn-luxury-gold py-5 text-[11px]">
                           VALIDAR Y DESBLOQUEAR
@@ -250,12 +249,12 @@ const App: React.FC = () => {
                   <h2 className="text-5xl lg:text-7xl font-serif font-black uppercase tracking-tighter">PORTAFOLIO</h2>
                 </div>
                 <form onSubmit={handleAISearch} className="flex gap-4 border-b border-white/10 pb-2 w-full lg:w-96">
-                  <input value={filters.query} onChange={e => setFilters({...filters, query: e.target.value})} placeholder={t.search_placeholder} className="bg-transparent text-[11px] uppercase tracking-widest outline-none flex-grow" />
+                  <input value={filters.query} onChange={e => setFilters({...filters, query: e.target.value})} placeholder={t.search_placeholder} className="bg-transparent text-[11px] uppercase tracking-widest border border-white/10 py-3 outline-none focus:border-[#D4AF37] transition-all" />
                   <button type="submit" className="text-[#D4AF37]">{isAIProcessing ? '...' : <ChevronRight size={20}/>}</button>
                 </form>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                {PROPIEDADES.map(p => <PropertyCard key={p.id} property={p} onViewDetails={setSelectedProperty} onToggleCompare={() => {}} isComparing={false} labels={{ rooms: t.specs_rooms, baths: t.specs_baths, details: t.hero_cta_primary }} />)}
+                {PROPIEDADES.map(p => <PropertyCard key={p.id} property={p} onViewDetails={setSelectedProperty} onToggleCompare={() => {}} isComparing={false} labels={{ rooms: t.specs_rooms, baths: t.specs_baths }} />)}
               </div>
             </motion.div>
           )}
@@ -267,7 +266,8 @@ const App: React.FC = () => {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center max-w-6xl">
                 <div className="luxury-card p-12 lg:p-20 space-y-12">
                   <h3 className="text-2xl font-serif font-black uppercase text-[#D4AF37]">POSICIONAMIENTO GLOBAL</h3>
-                  <p className="text-white/50 text-[12px] leading-loose uppercase tracking-widest font-medium">Combinamos precisión algorítmica y producción cinematográfica para posicionar su activo ante inversores de alto perfil.</p>
+                  <p className="text-white/50 text-[12px] leading-loose uppercase tracking-widest font-medium">Combinamos precisión algorítmica y producción cinematográfica para posicionar su activo.
+                  </p>
                   <button className="btn-luxury-gold w-full py-6 text-[12px]">SOLICITAR VALUACIÓN</button>
                 </div>
                 <div className="relative overflow-hidden grayscale aspect-[4/5] rounded-none shadow-2xl bg-black">
@@ -286,7 +286,7 @@ const App: React.FC = () => {
                    <a href="https://wa.me/14377768395" className="btn-luxury-gold px-16 py-6 text-[12px] flex items-center justify-center gap-4">
                      <MessageCircle size={20} /> WHATSAPP VIP
                    </a>
-                   <a href="mailto:contacto@miguelangelperez.mx" className="px-16 py-6 text-[12px] font-black uppercase tracking-[0.5em] border border-white/10 hover:border-[#D4AF37] transition-all flex items-center justify-center gap-4">
+                   <a href="mailto:contacto@miguelangelperez.mx" className="px-16 py-6 text-[12px] font-black uppercase tracking-[0.5em] border border-white/10 hover:border-[#D4AF37] transition-all flex items-center justify-center">
                      CANAL OFICIAL
                    </a>
                 </div>
@@ -338,15 +338,15 @@ const App: React.FC = () => {
       {/* DETAIL MODAL */}
       <AnimatePresence>
         {selectedProperty && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[200] flex items-center justify-center p-6 lg:p-16 bg-black/95 backdrop-blur-2xl overflow-y-auto">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[200] flex items-center justify-center p-6 lg:p-16 bg-black/95 backdrop-blur-2xl">
             <div className="absolute inset-0" onClick={() => setSelectedProperty(null)} />
-            <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-[#011c16] w-full max-w-7xl relative overflow-hidden border border-white/10 grid grid-cols-1 lg:grid-cols-12 shadow-2xl">
+            <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-[#011c16] w-full max-w-7xl relative overflow-hidden border border-white/10 grid grid-cols-[...]">
               <button onClick={() => setSelectedProperty(null)} className="absolute top-8 right-8 z-[210] text-white/20 hover:text-white p-4 transition-all"><X size={32}/></button>
               <div className="lg:col-span-5 h-[40vh] lg:h-auto overflow-hidden bg-black">
                 <img src={selectedProperty.img} className="w-full h-full object-cover grayscale" alt="" />
               </div>
               <div className="lg:col-span-7 p-10 lg:p-20 flex flex-col">
-                 <span className="text-[#D4AF37] text-[10px] font-black uppercase tracking-[1em] mb-6 block italic opacity-50">{selectedProperty.zona}</span>
+                 <span className="text-[#D4AF37] text-[10px] font-black uppercase tracking-[1em] mb-6 block italic">{selectedProperty.zona}</span>
                  <h2 className="text-4xl lg:text-7xl font-serif font-black mb-8 uppercase tracking-tighter leading-none">{selectedProperty.titulo}</h2>
                  <p className="text-4xl font-black text-[#D4AF37] mb-12 tracking-tighter">{FORMAT_PRICE(selectedProperty.precio)}</p>
                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
@@ -359,7 +359,7 @@ const App: React.FC = () => {
                  <p className="text-white/50 text-xl leading-loose mb-16 italic border-l-4 border-[#D4AF37] pl-10">"{selectedProperty.descripcion}"</p>
                  <div className="mt-auto flex flex-col md:flex-row gap-6">
                     <button onClick={() => setSelectedProperty(null)} className="btn-luxury-gold flex-1 py-5 text-[11px]">{t.hero_cta_primary}</button>
-                    <a href="https://wa.me/14377768395" className="px-12 border border-[#D4AF37]/30 text-[#D4AF37] flex items-center justify-center text-[11px] font-black uppercase tracking-[0.5em] hover:bg-[#D4AF37] hover:text-black transition-all">VIP CONNECT</a>
+                    <a href="https://wa.me/14377768395" className="px-12 border border-[#D4AF37]/30 text-[#D4AF37] flex items-center justify-center text-[11px] font-black uppercase tracking-[0.5em] hover:text-[#D4AF37] transition-all">CONTÁCTENOS</a>
                  </div>
               </div>
             </motion.div>
