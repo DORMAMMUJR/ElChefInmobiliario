@@ -49,7 +49,7 @@ const App: React.FC = () => {
         <div className="container mx-auto h-full px-6 lg:px-12 flex justify-between items-center">
           <div className="flex items-center gap-4 cursor-pointer group" onClick={() => setCurrentView('home')}>  
             <img 
-              src="https://raw.githubusercontent.com/DORMAMMUJR/ElChefInmobiliario/2cc29d8f938a67ef925912e1a9133c2882bd4021/WhatsApp%20Image%202026-01-23%20at%204.22.16%20PM.jpeg?token=BZLM3CUFGMYVTUT3HM2743DJOQH64" 
+              src="WhatsApp Image 2026-01-23 at 4.22.16 PM.jpeg" 
               className="w-12 h-12 rounded-full object-cover border border-[#D4AF37]/40 shadow-xl" 
               alt="" 
             />
