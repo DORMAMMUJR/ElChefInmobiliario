@@ -10,23 +10,23 @@ export const CONTACT_INFO = {
 
 export const VENTAJAS = [
   {
-    titulo: "Curaduría de Activos",
-    desc: "No listamos propiedades; seleccionamos piezas arquitectónicas que cumplen con estándares de inversión y estética excepcionales.",
+    titulo: "Estrategia Patrimonial Exclusiva",
+    desc: "Nuestra metodología va más allá de la simple intermediación. Ejecutamos un análisis exhaustivo de cada activo, evaluando su estructura legal, potencial de apreciación y eficiencia fiscal para garantizar una inversión inteligente y segura.",
     icono: "Award"
   },
   {
-    titulo: "Inteligencia de Mercado",
-    desc: "Análisis predictivo de plusvalía y proyecciones financieras para asegurar que su patrimonio crezca con solidez.",
+    titulo: "Inteligencia de Datos & Mercado",
+    desc: "Utilizamos herramientas de Big Data para monitorear tendencias en tiempo real. Esto nos permite asesorar a nuestros clientes sobre el momento óptimo de compra o venta, maximizando los retornos de inversión en las zonas de mayor plusvalía de México.",
     icono: "BarChart"
   },
   {
-    titulo: "Marketing de Alta Cocina",
-    desc: "Producción cinematográfica y narrativa emocional para que cada propiedad cuente una historia que atraiga al comprador ideal.",
+    titulo: "Ecosistema Digital 4K",
+    desc: "Posicionamos su propiedad mediante estrategias de marketing sensorial. Utilizamos videografía cinematográfica de alta definición y recorridos virtuales inmersivos que conectan emocionalmente con inversores internacionales de alto nivel.",
     icono: "Camera"
   },
   {
-    titulo: "Red de Contactos Elite",
-    desc: "Acceso exclusivo a preventas 'off-market' y oportunidades de inversión restringidas al círculo más alto de la industria.",
+    titulo: "Gestión Concierge 'End-to-End'",
+    desc: "Nos encargamos de todo el proceso: desde la valuación inicial y el filtrado de prospectos, hasta la gestión notarial y el servicio post-venta. Un canal único de comunicación para que su única preocupación sea disfrutar de su nuevo patrimonio.",
     icono: "Globe"
   }
 ];
@@ -78,7 +78,7 @@ export const PROPIEDADES: Property[] = [
         tag: "Modern",
         descripcion: "Vivir en las nubes. Departamento con terraza privada y acceso directo al Parque La Mexicana.",
         caracteristicas: ["Acceso Parque", "Cine Privado", "Vigilancia"],
-        img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=90&w=1200"
+        img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1200"
     }
 ];
 
@@ -88,7 +88,7 @@ export const TESTIMONIOS: Testimonial[] = [
     nombre: "Sr. Alexander Von Bürg",
     rol: "Inversionista Privado",
     foto: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=90&w=400",
-    cita: "La metodología de El Chef Inmobiliario transformó mi visión sobre las inversiones. Su precisión para detectar plusvalía es quirúrgica.",
+    cita: "La metodología aplicada por Hola Group transformó mi visión sobre las inversiones en CDMX. Su precisión para detectar zonas con plusvalía oculta es simplemente quirúrgica y honesta.",
     estrellas: 5
   },
   {
@@ -96,7 +96,7 @@ export const TESTIMONIOS: Testimonial[] = [
     nombre: "Claudia Mendizábal",
     rol: "CEO Desarrolladora Lúmina",
     foto: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=90&w=400",
-    cita: "En Hola Group no solo venden m2, venden un estilo de vida aspiracional. Son el aliado estratégico que toda constructora de lujo necesita.",
+    cita: "No solo venden metros cuadrados, venden un estilo de vida aspiracional. Son el aliado estratégico que toda constructora de lujo necesita para conectar con clientes de alto perfil.",
     estrellas: 5
   },
   {
@@ -104,7 +104,7 @@ export const TESTIMONIOS: Testimonial[] = [
     nombre: "Mauricio Echeverría",
     rol: "Comprador Residencial",
     foto: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=90&w=400",
-    cita: "El servicio de concierge superó mis expectativas. Desde la primera cita hasta la firma, el acompañamiento fue impecable.",
+    cita: "El servicio de concierge inmobiliario superó mis expectativas. Desde la primera cita hasta la firma en notaría, el acompañamiento fue impecable y totalmente transparente.",
     estrellas: 5
   }
 ];

@@ -5,7 +5,7 @@ import { PROPIEDADES, TRANSLATIONS, FORMAT_PRICE, CONTACT_INFO, VENTAJAS, TESTIM
 import { PropertyCard } from './components/PropertyCard';
 import { parseUserSearchIntent } from './services/geminiService';
 import { 
-  X, MessageCircle, Maximize2, Bed, Bath, Car, Star, ChevronRight, Menu, Globe, Instagram, Linkedin, ShieldCheck, Award, Lock, ShoppingBag, CheckCircle2, Phone, Camera, Key, BarChart, Zap
+  X, MessageCircle, Maximize2, Bed, Bath, Car, Star, ChevronRight, Menu, Globe, Instagram, Linkedin, ShieldCheck, Award, Lock, ShoppingBag, CheckCircle2, Phone, Camera, Key, BarChart
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -17,8 +17,8 @@ const App: React.FC = () => {
   const [isAIProcessing, setIsAIProcessing] = useState(false);
   const [filters, setFilters] = useState<FilterState>({ operacion: 'todos', tipo: 'todos', zona: 'todos', precioMax: '', query: '' });
   
-  // Profile Picture State
-  const [profilePic, setProfilePic] = useState<string>("https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=90&w=200");
+  // Profile Picture State - Initial state is the professional portrait from the link provided
+  const [profilePic, setProfilePic] = useState<string>("https://github.com/DORMAMMUJR/ElChefInmobiliario/blob/main/WhatsApp%20Image%202026-01-23%20at%204.22.16%20PM.jpeg?raw=true");
   const [isChangingPic, setIsChangingPic] = useState(false);
   const [password, setPassword] = useState("");
   const [newUrl, setNewUrl] = useState("");
@@ -46,12 +46,12 @@ const App: React.FC = () => {
 
   const handlePasswordSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // New password requirement satisfied: Sasquexy1
+    // Updated password: Sasquexy1
     if (password === "Sasquexy1") {
       setChangeStep('url');
       setError("");
     } else {
-      setError("Password incorrect. Access Denied.");
+      setError("Clave incorrecta. Acceso Denegado.");
     }
   };
 
@@ -65,7 +65,7 @@ const App: React.FC = () => {
       setNewUrl("");
       setError("");
     } else {
-      setError("Please provide a valid image URL.");
+      setError("Por favor proporcione una URL de imagen válida.");
     }
   };
 
@@ -77,10 +77,9 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#011c16] text-white flex flex-col font-sans selection:bg-[#D4AF37] selection:text-black overflow-x-hidden">
-      {/* HEADER - DUAL LOGO HIERARCHY */}
+      {/* HEADER */}
       <header className="fixed top-0 w-full z-[100] h-24 border-b border-white/5 backdrop-blur-2xl bg-[#011c16]/90">
         <div className="container mx-auto h-full px-6 lg:px-12 flex justify-between items-center">
-          {/* Brand Left */}
           <div className="flex items-center gap-6 cursor-pointer group">
              <div className="relative" onClick={() => setIsChangingPic(true)}>
                 <img 
@@ -133,14 +132,14 @@ const App: React.FC = () => {
         <AnimatePresence mode="wait">
           {currentView === 'home' && (
             <motion.div key="home" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="w-full">
-              {/* PROFESSIONAL HERO SECTION */}
+              {/* HERO SECTION */}
               <section className="min-h-[calc(100vh-96px)] flex flex-col lg:flex-row w-full bg-[#011c16]">
                 <div className="w-full lg:w-1/2 relative h-[60vh] lg:h-auto overflow-hidden bg-black">
-                  <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=90&w=1200" className="w-full h-full object-cover grayscale opacity-40 scale-105" alt="Luxury Architecture" />
+                  <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=90&w=1200" className="w-full h-full object-cover grayscale opacity-40 scale-105" alt="Luxury Assets" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#011c16] via-transparent to-transparent opacity-90 lg:hidden" />
                 </div>
                 
-                <div className="w-full lg:w-1/2 flex flex-col justify-center px-8 lg:px-24 py-20 lg:py-12 border-l border-white/5 bg-[#011c16] relative">
+                <div className="w-full lg:w-1/2 flex flex-col justify-center px-8 lg:px-24 py-20 lg:py-12 border-l border-white/5 bg-[#011c16] relative text-left">
                    <div className="max-w-xl">
                       <div className="mb-12">
                         <span className="text-[#D4AF37] text-[12px] font-black uppercase tracking-[0.8em] mb-4 block opacity-80 leading-none">REAL ESTATE CURATOR</span>
@@ -165,13 +164,13 @@ const App: React.FC = () => {
                 </div>
               </section>
 
-              {/* VENTAJAS DEL CHEF (NEW SECTION) */}
+              {/* VENTAJAS INMOBILIARIAS DETALLADAS */}
               <section className="py-32 bg-[#022c22]/20 border-y border-white/5 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-1/3 h-full bg-[#D4AF37]/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2" />
                 <div className="container mx-auto px-6 lg:px-12 relative z-10">
                    <div className="max-w-4xl mb-24">
-                      <span className="text-[#D4AF37] text-[12px] font-black uppercase tracking-[1.5em] mb-8 block italic">Ventajas del Chef</span>
-                      <h2 className="text-5xl lg:text-8xl font-serif font-black uppercase tracking-tighter leading-tight">PRECISIÓN EN CADA <span className="text-[#D4AF37]">INGREDIENTE</span></h2>
+                      <span className="text-[#D4AF37] text-[12px] font-black uppercase tracking-[1.5em] mb-8 block italic">Metodología de Valor</span>
+                      <h2 className="text-5xl lg:text-8xl font-serif font-black uppercase tracking-tighter leading-tight">VENTAJAS DE NUESTRA <span className="text-[#D4AF37]">CURADURÍA</span></h2>
                    </div>
                    
                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
@@ -198,12 +197,12 @@ const App: React.FC = () => {
                 </div>
               </section>
 
-              {/* OPINIONES DE LA CRÍTICA (NEW SECTION) */}
+              {/* OPINIONES DE LA CRÍTICA */}
               <section className="py-32 bg-[#011c16]">
                  <div className="container mx-auto px-6 lg:px-12">
                     <div className="text-center mb-24">
-                       <span className="text-[#D4AF37] text-[12px] font-black uppercase tracking-[1.5em] mb-8 block italic">Opiniones de la Crítica</span>
-                       <h2 className="text-5xl lg:text-7xl font-serif font-black uppercase tracking-tighter leading-tight">RESEÑAS <span className="text-[#D4AF37]">GOURMET</span></h2>
+                       <span className="text-[#D4AF37] text-[12px] font-black uppercase tracking-[1.5em] mb-8 block italic">Experiencia de Cliente</span>
+                       <h2 className="text-5xl lg:text-7xl font-serif font-black uppercase tracking-tighter leading-tight">OPINIONES DEL <span className="text-[#D4AF37]">PORTAFOLIO</span></h2>
                     </div>
                     
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -250,8 +249,8 @@ const App: React.FC = () => {
             <motion.div key="catalog" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="container mx-auto px-6 lg:px-12 py-32">
               <div className="flex flex-col lg:flex-row justify-between items-end mb-24 gap-12">
                 <div>
-                  <span className="text-[#D4AF37] text-[12px] font-black uppercase tracking-[1em] mb-8 block italic opacity-60">{t.catalog_title}</span>
-                  <h2 className="text-6xl lg:text-9xl font-serif font-black uppercase tracking-tighter leading-none">PORTAFOLIO <br/> <span className="text-[#D4AF37]">DE SELECCIÓN</span></h2>
+                  <span className="text-[#D4AF37] text-[12px] font-black uppercase tracking-[1em] mb-8 block italic opacity-60">Curated Portfolio</span>
+                  <h2 className="text-6xl lg:text-9xl font-serif font-black uppercase tracking-tighter leading-none">SELECCIÓN <br/> <span className="text-[#D4AF37]">DE ACTIVOS</span></h2>
                 </div>
                 <form onSubmit={handleAISearch} className="flex gap-6 border-b border-white/10 pb-4 w-full lg:w-[450px] group">
                   <input value={filters.query} onChange={e => setFilters({...filters, query: e.target.value})} placeholder={t.search_placeholder} className="bg-transparent text-[13px] uppercase tracking-widest outline-none flex-grow font-bold text-white placeholder-white/10" />
@@ -271,11 +270,11 @@ const App: React.FC = () => {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center max-w-7xl">
                 <div className="luxury-card p-16 lg:p-24 space-y-16">
                   <h3 className="text-4xl font-serif font-black uppercase text-[#D4AF37]">POSICIONAMIENTO ÉLITE</h3>
-                  <p className="text-white/40 text-[14px] leading-relaxed uppercase tracking-widest font-medium">Combinamos la elegancia de la alta cocina con la agresividad de los algoritmos financieros para vender su activo al mejor postor global.</p>
+                  <p className="text-white/40 text-[14px] leading-relaxed uppercase tracking-widest font-medium">Combinamos la elegancia del sector de lujo con la agresividad de los algoritmos financieros para vender su activo al mejor postor global.</p>
                   <button className="btn-luxury-gold w-full py-8 text-[13px]">SOLICITAR CONSULTORÍA</button>
                 </div>
                 <div className="relative overflow-hidden grayscale aspect-[3/4] rounded-none shadow-2xl bg-black border border-white/5">
-                   <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1000" className="w-full h-full object-cover" alt="" />
+                   <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1000" className="w-full h-full object-cover" alt="Elite Property" />
                 </div>
               </div>
             </motion.div>
@@ -285,7 +284,7 @@ const App: React.FC = () => {
             <motion.div key="contact" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="container mx-auto px-6 lg:px-12 py-40 min-h-[70vh] flex items-center justify-center">
               <div className="text-center max-w-4xl">
                 <span className="text-[#D4AF37] text-[12px] font-black uppercase tracking-[1.5em] mb-12 block italic opacity-50">Exclusive Line</span>
-                <h2 className="text-7xl lg:text-9xl font-serif font-black uppercase tracking-tighter mb-20 leading-none">CONECTA CON<br/>EL CHEF</h2>
+                <h2 className="text-7xl lg:text-9xl font-serif font-black uppercase tracking-tighter mb-20 leading-none">CONECTA CON<br/>HOLA GROUP</h2>
                 <div className="flex flex-col md:flex-row gap-8 justify-center items-center">
                    <a href={`https://wa.me/${CONTACT_INFO.whatsapp}`} className="btn-luxury-gold px-24 py-8 text-[13px] flex items-center justify-center gap-6 w-full md:w-auto">
                      <MessageCircle size={28} /> WHATSAPP VIP
@@ -306,12 +305,13 @@ const App: React.FC = () => {
       {/* FOOTER */}
       <footer className="bg-[#011c16] border-t border-white/5 pt-32 pb-16 mt-auto">
         <div className="container mx-auto px-6 lg:px-12">
-           {/* BOTTOM IMAGE CHANGE AS REQUESTED */}
-           <div className="w-full h-[400px] overflow-hidden mb-24 relative group">
-              <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=90&w=1600" className="w-full h-full object-cover grayscale opacity-30 group-hover:grayscale-0 group-hover:opacity-50 transition-all duration-1000" alt="Corporate Architecture" />
+           {/* UPDATED FOOTER IMAGE */}
+           <div className="w-full h-[450px] overflow-hidden mb-24 relative group">
+              <img src="https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&q=90&w=1600" className="w-full h-full object-cover grayscale opacity-30 group-hover:grayscale-0 group-hover:opacity-70 transition-all duration-1000" alt="Architecture" />
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#011c16]/80" />
               <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-12">
-                 <h4 className="text-5xl md:text-7xl font-serif font-black uppercase tracking-tighter text-white mb-6">HOLA GROUP</h4>
-                 <p className="text-[#D4AF37] text-[11px] font-black uppercase tracking-[1.5em] opacity-80">Property Advisors & Capital Management</p>
+                 <h4 className="text-6xl md:text-8xl font-serif font-black uppercase tracking-tighter text-white mb-6">HOLA GROUP</h4>
+                 <p className="text-[#D4AF37] text-[11px] font-black uppercase tracking-[1.5em] opacity-80">ESTRATEGIA INMOBILIARIA DE CLASE MUNDIAL</p>
               </div>
            </div>
 
@@ -339,13 +339,13 @@ const App: React.FC = () => {
             <div className="md:col-span-3">
               <h5 className="text-[#D4AF37] text-[11px] font-black uppercase tracking-[0.4em] mb-12 opacity-30">ESTRATÉGICO</h5>
               <div className="flex flex-col gap-6">
-                <button className="text-[11px] text-white/20 hover:text-white uppercase tracking-widest text-left font-bold">PRIVACIDAD</button>
-                <button className="text-[11px] text-white/20 hover:text-white uppercase tracking-widest text-left font-bold">TÉRMINOS</button>
-                <button className="text-[11px] text-white/20 hover:text-white uppercase tracking-widest text-left font-bold">HOLA GROUP AGENTS</button>
+                <button className="text-[11px] text-white/20 hover:text-white uppercase tracking-widest text-left font-bold">AVISO DE PRIVACIDAD</button>
+                <button className="text-[11px] text-white/20 hover:text-white uppercase tracking-widest text-left font-bold">TÉRMINOS DE SERVICIO</button>
+                <button className="text-[11px] text-white/20 hover:text-white uppercase tracking-widest text-left font-bold">RED DE AGENTES</button>
               </div>
             </div>
           </div>
-          <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-12">
+          <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-12 text-center md:text-left">
             <span className="text-[11px] font-black text-white/5 uppercase tracking-[1em]">© 2027 MIGUEL ANGEL PÉREZ • EL CHEF INMOBILIARIO</span>
             <div className="flex items-center gap-6">
                 <span className="text-[10px] font-black text-white/5 uppercase tracking-[0.5em]">HOLA GROUP PROPERTY ADVISORS</span>
@@ -399,17 +399,17 @@ const App: React.FC = () => {
               {changeStep === 'prompt' && (
                 <div className="py-8">
                   <Camera size={48} className="text-[#D4AF37] mx-auto mb-6" />
-                  <h3 className="text-2xl font-serif font-black uppercase tracking-tight mb-4">Change Profile Picture?</h3>
-                  <p className="text-white/40 text-[11px] uppercase tracking-widest mb-10">Identity verification required for the Chief Executive.</p>
-                  <button onClick={() => setChangeStep('password')} className="btn-luxury-gold w-full py-4 text-[11px]">PROCEED TO VERIFICATION</button>
+                  <h3 className="text-2xl font-serif font-black uppercase tracking-tight mb-4">Cambiar Retrato Ejecutivo?</h3>
+                  <p className="text-white/40 text-[11px] uppercase tracking-widest mb-10">Se requiere verificación de identidad del Jefe de Operaciones.</p>
+                  <button onClick={() => setChangeStep('password')} className="btn-luxury-gold w-full py-4 text-[11px]">PROCEDER A VERIFICACIÓN</button>
                 </div>
               )}
 
               {changeStep === 'password' && (
                 <form onSubmit={handlePasswordSubmit} className="py-8">
                   <Key size={48} className="text-[#D4AF37] mx-auto mb-6" />
-                  <h3 className="text-2xl font-serif font-black uppercase tracking-tight mb-4">ACCESS KEY</h3>
-                  <p className="text-white/40 text-[11px] uppercase tracking-widest mb-10">Enter executive password to unlock modifications.</p>
+                  <h3 className="text-2xl font-serif font-black uppercase tracking-tight mb-4">CLAVE DE ACCESO</h3>
+                  <p className="text-white/40 text-[11px] uppercase tracking-widest mb-10">Ingrese la contraseña de administrador inmobiliario.</p>
                   <input 
                     type="password" 
                     value={password}
@@ -419,25 +419,28 @@ const App: React.FC = () => {
                     autoFocus
                   />
                   {error && <p className="text-red-500 text-[10px] font-black uppercase mb-6 tracking-widest">{error}</p>}
-                  <button type="submit" className="btn-luxury-gold w-full py-4 text-[11px]">VALIDATE IDENTITY</button>
+                  <button type="submit" className="btn-luxury-gold w-full py-4 text-[11px]">VALIDAR IDENTIDAD</button>
                 </form>
               )}
 
               {changeStep === 'url' && (
-                <form onSubmit={handleUrlSubmit} className="py-8">
+                <form onSubmit={handleUrlSubmit} className="py-8 text-left">
                   <Globe size={48} className="text-[#D4AF37] mx-auto mb-6" />
-                  <h3 className="text-2xl font-serif font-black uppercase tracking-tight mb-4">NEW ASSET URL</h3>
-                  <p className="text-white/40 text-[11px] uppercase tracking-widest mb-10">Provide the direct link to the updated executive portrait.</p>
+                  <h3 className="text-2xl font-serif font-black uppercase tracking-tight mb-4 text-center">NUEVA URL DE IMAGEN</h3>
+                  <p className="text-white/40 text-[11px] uppercase tracking-widest mb-4 leading-relaxed">Ejemplo recomendado:</p>
+                  <code className="block bg-black/40 p-3 text-[10px] text-[#D4AF37] break-all mb-8 border border-white/5">
+                    https://github.com/DORMAMMUJR/ElChefInmobiliario/blob/main/WhatsApp%20Image%202026-01-23%20at%204.22.16%20PM.jpeg?raw=true
+                  </code>
                   <input 
                     type="text" 
                     value={newUrl}
                     onChange={(e) => setNewUrl(e.target.value)}
                     className="w-full bg-white/5 border-b border-[#D4AF37]/30 py-4 px-4 text-white outline-none focus:border-[#D4AF37] transition-all mb-8 font-bold text-sm" 
-                    placeholder="https://images.unsplash.com/..."
+                    placeholder="Pegue la URL aquí..."
                     autoFocus
                   />
-                  {error && <p className="text-red-500 text-[10px] font-black uppercase mb-6 tracking-widest">{error}</p>}
-                  <button type="submit" className="btn-luxury-gold w-full py-4 text-[11px]">COMMIT CHANGES</button>
+                  {error && <p className="text-red-500 text-[10px] font-black uppercase mb-6 tracking-widest text-center">{error}</p>}
+                  <button type="submit" className="btn-luxury-gold w-full py-4 text-[11px]">GUARDAR CAMBIOS</button>
                 </form>
               )}
             </motion.div>
