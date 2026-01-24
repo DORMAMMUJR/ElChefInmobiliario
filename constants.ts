@@ -17,7 +17,7 @@ export const PROPIEDADES: Property[] = [
         tag: "Exclusivo",
         descripcion: "Una joya arquitectónica en el corazón de Polanco. Techos de doble altura, acabados en mármol y un jardín privado de ensueño.",
         caracteristicas: ["Seguridad Privada", "Cava", "Jardín Zen", "Paneles Solares"],
-        img: "https://github.com/DORMAMMUJR/ElChefInmobiliario/blob/main/WhatsApp%20Image%202026-01-23%20at%204.22.16%20PM.jpeg?raw=true"
+        img: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=90&w=1200"
     },
     {
         id: 2,
