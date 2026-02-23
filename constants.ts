@@ -4,211 +4,369 @@ import { Property, Testimonial, Service } from './types';
 export const CONTACT_INFO = {
   phone: "+1 437 776 8395",
   whatsapp: "14377768395",
-  email: "contacto@miguelangelperez.mx",
-  brand: "HOLA GROUP PROPERTY ADVISORS"
+  email: "contacto@chefinmobiliario.mx",
+  brand: "EL CHEF INMOBILIARIO",
+  instagram: "https://instagram.com/elchefinmobiliario",
+  linkedin: "https://linkedin.com/in/miguelangelperezcook",
+  calendly: ""
 };
 
+// ─── HISTORIA DE MIGUEL ──────────────────────────────────────────────────────
+export const HISTORIA_MIGUEL = {
+  es: {
+    supertitle: "De la Cocina al Capital",
+    title: "Por qué confiar en el Chef Inmobiliario",
+    body: "Soy Miguel Angel Pérez. Nací en México, construí mi carrera en Toronto, y llevo más de 15 años ayudando a personas a tomar decisiones financieras que cambian su vida.",
+    body2: "Pasé por la cocina profesional, los seguros, Tecnocasa, y hoy estoy en el mundo que más me apasiona: el inmobiliario. Sé lo que es trabajar duro en Canadá y querer que ese dinero trabaje aún más duro en México.",
+    body3: "Entiendo ambos mundos, ambas culturas y ambos mercados. Eso me convierte en tu mejor aliado.",
+    credenciales: [
+      { icon: "🍳", text: "Chef profesional graduado — disciplina, precisión y pasión" },
+      { icon: "🏙️", text: "Vivo en Toronto — entiendo el mercado canadiense desde adentro" },
+      { icon: "🏠", text: "15+ años en ventas inmobiliarias y seguros en Canadá y México" },
+      { icon: "🤝", text: "Ex-asesor Tecnocasa — formado con los mejores del sector" },
+      { icon: "🌎", text: "Red activa de desarrolladores en Mérida, Riviera Maya y Yucalpetén" },
+      { icon: "💬", text: "Asesoría completa en español e inglés, sin intermediarios" },
+    ]
+  },
+  en: {
+    supertitle: "From Kitchen to Capital",
+    title: "Why Trust The Real Estate Chef",
+    body: "I'm Miguel Angel Pérez. Born in Mexico, built my career in Toronto, and for over 15 years I've been helping people make financial decisions that change their lives.",
+    body2: "I went through professional cooking, insurance, Tecnocasa, and now I'm in the world that truly drives me: real estate. I know what it means to work hard in Canada and want that money to work even harder back in Mexico.",
+    body3: "I understand both worlds, both cultures, both markets. That makes me your best ally.",
+    credenciales: [
+      { icon: "🍳", text: "Professional chef graduate — discipline, precision and passion" },
+      { icon: "🏙️", text: "Based in Toronto — I understand the Canadian market from the inside" },
+      { icon: "🏠", text: "15+ years in real estate sales and insurance in Canada and Mexico" },
+      { icon: "🤝", text: "Former Tecnocasa advisor — trained with the best in the industry" },
+      { icon: "🌎", text: "Active network of developers in Mérida, Riviera Maya and Yucalpetén" },
+      { icon: "💬", text: "Full advisory in Spanish and English, no intermediaries" },
+    ]
+  }
+};
+
+// ─── VENTAJAS / BENEFICIOS ────────────────────────────────────────────────────
 export const VENTAJAS = [
   {
-    titulo: "Estrategia Patrimonial Exclusiva",
-    desc: "Nuestra metodología va más allá de la simple intermediación. Ejecutamos un análisis exhaustivo de cada activo, evaluando su estructura legal, potencial de apreciación y eficiencia fiscal para garantizar una inversión inteligente y segura.",
+    titulo: "Inversión Fractional",
+    desc: "Accede a propiedades de clase mundial con tickets accesibles. El modelo fractional te permite invertir en lujo sin necesidad de comprar el 100%.",
     icono: "Award"
   },
   {
-    titulo: "Inteligencia de Datos & Mercado",
-    desc: "Utilizamos herramientas de Big Data para monitorear tendencias en tiempo real. Esto nos permite asesorar a nuestros clientes sobre el momento óptimo de compra o venta, maximizando los retornos de inversión en las zonas de mayor plusvalía de México.",
+    titulo: "Binacional por Naturaleza",
+    desc: "Entiendo el dinero canadiense y el mercado mexicano. Te asesoro en ambos idiomas con una sola persona de confianza.",
+    icono: "Globe"
+  },
+  {
+    titulo: "Mercados de Alto Potencial",
+    desc: "Mérida, Riviera Maya y el Puerto de Progreso son las zonas con mayor plusvalía de México. Llegamos antes que todos.",
     icono: "BarChart"
   },
   {
-    titulo: "Ecosistema Digital 4K",
-    desc: "Posicionamos su propiedad mediante estrategias de marketing sensorial. Utilizamos videografía cinematográfica de alta definición y recorridos virtuales inmersivos que conectan emocionalmente con inversores internacionales de alto nivel.",
-    icono: "Camera"
-  },
-  {
-    titulo: "Gestión Concierge 'End-to-End'",
-    desc: "Nos encargamos de todo el proceso: desde la valuación inicial y el filtrado de prospectos, hasta la gestión notarial y el servicio post-venta. Un canal único de comunicación para que su única preocupación sea disfrutar de su nuevo patrimonio.",
-    icono: "Globe"
+    titulo: "Acompañamiento Total",
+    desc: "Desde la primera llamada hasta la escritura firmada. Sin surpresas, sin intermediarios, con toda la asesoría legal incluida.",
+    icono: "ShieldCheck"
   }
 ];
 
+// ─── POR QUÉ INVERTIR EN MÉXICO ──────────────────────────────────────────────
+export const RAZONES_MEXICO = {
+  es: {
+    supertitle: "Por qué México",
+    title: "El mejor momento para invertir ya llegó",
+    subtitle: "Mientras otros esperan, los inversionistas inteligentes ya están dentro.",
+    razones: [
+      {
+        zona: "Mérida, Yucatán",
+        icon: "🏛️",
+        titulo: "La ciudad más segura de México",
+        desc: "Crecimiento sostenido, inversión extranjera récord y calidad de vida sin igual. Mérida es el secreto mejor guardado del mercado inmobiliario latinoamericano.",
+        stat: "+12% plusvalía anual"
+      },
+      {
+        zona: "Yucalpetén, Progreso",
+        icon: "⚓",
+        titulo: "El nuevo polo náutico de México",
+        desc: "El puerto de aguas profundas más cercano a Miami. Con la expansión del Puerto de Progreso y el Marina Yucalpetén, esta zona está a punto de explotar en valor.",
+        stat: "Puerto en expansión masiva"
+      },
+      {
+        zona: "Riviera Maya",
+        icon: "🌊",
+        titulo: "Turismo de clase mundial",
+        desc: "Cancún, Tulum y Playa del Carmen generan millones de visitantes al año. Propiedades frente al mar con retorno de renta vacacional del 8-12% anual.",
+        stat: "8-12% ROI en renta vacacional"
+      }
+    ]
+  },
+  en: {
+    supertitle: "Why Mexico",
+    title: "The best time to invest is now",
+    subtitle: "While others wait, smart investors are already in.",
+    razones: [
+      {
+        zona: "Mérida, Yucatán",
+        icon: "🏛️",
+        titulo: "Mexico's Safest City",
+        desc: "Sustained growth, record foreign investment and unmatched quality of life. Mérida is the best-kept secret of the Latin American real estate market.",
+        stat: "+12% annual appreciation"
+      },
+      {
+        zona: "Yucalpetén, Progreso",
+        icon: "⚓",
+        titulo: "Mexico's New Nautical Hub",
+        desc: "The deepwater port closest to Miami. With the expansion of Puerto Progreso and Marina Yucalpetén, this area is about to explode in value.",
+        stat: "Major port expansion underway"
+      },
+      {
+        zona: "Riviera Maya",
+        icon: "🌊",
+        titulo: "World-Class Tourism",
+        desc: "Cancún, Tulum and Playa del Carmen attract millions of visitors per year. Beachfront properties with vacation rental returns of 8-12% annually.",
+        stat: "8-12% vacation rental ROI"
+      }
+    ]
+  }
+};
+
+// ─── PROPIEDADES ─────────────────────────────────────────────────────────────
 export const PROPIEDADES: Property[] = [
-    {
-        id: 1,
-        titulo: "Residencia Colonial Polanco",
-        operacion: "Venta",
-        tipo: "Casa",
-        zona: "Polanco, CDMX",
-        precio: 24500000,
-        recamaras: 4,
-        banos: 4.5,
-        metros: 420,
-        estacionamientos: 3,
-        tag: "Exclusivo",
-        descripcion: "Una joya arquitectónica en el corazón de Polanco. Techos de doble altura, acabados en mármol y un jardín privado de ensueño.",
-        caracteristicas: ["Seguridad Privada", "Cava", "Jardín Zen", "Paneles Solares"],
-        img: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=90&w=1200"
-    },
-    {
-        id: 2,
-        titulo: "Penthouse Vista Arcos",
-        operacion: "Renta",
-        tipo: "Departamento",
-        zona: "Bosques de las Lomas, CDMX",
-        precio: 85000,
-        recamaras: 3,
-        banos: 3,
-        metros: 310,
-        estacionamientos: 4,
-        tag: "Luxury",
-        descripcion: "Vistas panorámicas inigualables. Elevador directo al piso y amenidades de clase mundial en el edificio.",
-        caracteristicas: ["Alberca", "Gimnasio", "Roof Garden Privado", "Helipuerto"],
-        img: "https://images.unsplash.com/photo-1600607687940-47a04b629733?auto=format&fit=crop&q=90&w=1200"
-    },
-    {
-        id: 3,
-        titulo: "Sky Garden Santa Fe",
-        operacion: "Venta",
-        tipo: "Departamento",
-        zona: "Santa Fe, CDMX",
-        precio: 8900000,
-        recamaras: 2,
-        banos: 2,
-        metros: 145,
-        estacionamientos: 2,
-        tag: "Modern",
-        descripcion: "Vivir en las nubes. Departamento con terraza privada y acceso directo al Parque La Mexicana.",
-        caracteristicas: ["Acceso Parque", "Cine Privado", "Vigilancia"],
-        img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1200"
-    }
+  {
+    id: 1,
+    titulo: "Marina Yucalpetén",
+    operacion: "Venta",
+    tipo: "Departamento",
+    zona: "Yucalpetén, Progreso",
+    precio: 2850000,
+    recamaras: 2,
+    banos: 2,
+    metros: 98,
+    estacionamientos: 1,
+    tag: "Fractional Disponible",
+    descripcion: "Departamentos frente al mar en el nuevo polo náutico de México. A pasos del marina más exclusivo del Golfo. Modelo fractional desde $285,000 MXN.",
+    caracteristicas: ["Vista al Mar", "Acceso Marina", "Alberca Infinity", "Modelo Fractional"],
+    img: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&q=90&w=1200"
+  },
+  {
+    id: 2,
+    titulo: "Loft Mérida Centro",
+    operacion: "Venta",
+    tipo: "Departamento",
+    zona: "Centro Histórico, Mérida",
+    precio: 3200000,
+    recamaras: 1,
+    banos: 1,
+    metros: 72,
+    estacionamientos: 1,
+    tag: "Alta Plusvalía",
+    descripcion: "Loft de diseño en el corazón del Centro Histórico de Mérida. Zona de mayor crecimiento en Yucatán. Ideal para renta vacacional o residencia personal.",
+    caracteristicas: ["Centro Histórico", "Diseño Moderno", "Renta Vacacional", "Plusvalía +12%"],
+    img: "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&q=90&w=1200"
+  },
+  {
+    id: 3,
+    titulo: "Oasis Riviera Maya",
+    operacion: "Venta",
+    tipo: "Casa",
+    zona: "Playa del Carmen, Riviera Maya",
+    precio: 7500000,
+    recamaras: 3,
+    banos: 3,
+    metros: 185,
+    estacionamientos: 2,
+    tag: "Luxury",
+    descripcion: "Casa de playa con jardín privado y alberca, a 200 metros del mar Caribe. Zona de alta demanda vacacional con retorno de renta del 10% anual.",
+    caracteristicas: ["200m del Mar", "Alberca Privada", "Jardín", "ROI 10% Renta"],
+    img: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=90&w=1200"
+  },
+  {
+    id: 4,
+    titulo: "Torres Progreso Náutico",
+    operacion: "Venta",
+    tipo: "Departamento",
+    zona: "Puerto Progreso, Yucatán",
+    precio: 1950000,
+    recamaras: 2,
+    banos: 2,
+    metros: 85,
+    estacionamientos: 1,
+    tag: "Pre-venta",
+    descripcion: "Pre-venta en el desarrollo más estratégico del Puerto de Progreso. Invierte hoy, capitaliza cuando el puerto termine su expansión en 2027.",
+    caracteristicas: ["Pre-venta", "Vista al Puerto", "Expansión 2027", "Entrega Garantizada"],
+    img: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=90&w=1200"
+  },
+  {
+    id: 5,
+    titulo: "Penthouse Mérida Norte",
+    operacion: "Venta",
+    tipo: "Departamento",
+    zona: "Norte, Mérida",
+    precio: 5800000,
+    recamaras: 3,
+    banos: 3,
+    metros: 210,
+    estacionamientos: 2,
+    tag: "Exclusivo",
+    descripcion: "Penthouse en la zona más exclusiva de Mérida Norte. Terraza panorámica, acabados europeos y amenidades de resort. Para el inversor que no se conforma.",
+    caracteristicas: ["Terraza Panorámica", "Acabados Europeos", "Amenidades Resort", "Zona Premium"],
+    img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1200"
+  },
+  {
+    id: 6,
+    titulo: "Villa Tulum Selva",
+    operacion: "Venta",
+    tipo: "Casa",
+    zona: "Tulum, Riviera Maya",
+    precio: 9200000,
+    recamaras: 4,
+    banos: 4,
+    metros: 280,
+    estacionamientos: 2,
+    tag: "Eco-Luxury",
+    descripcion: "Villa de lujo ecológico en la selva de Tulum. Arquitectura bioclimática, alberca privada y a minutos de la zona arqueológica. El futuro del lujo consciente.",
+    caracteristicas: ["Eco-Lujo", "Arquitectura Bioclimática", "Selva Tulum", "Alta Revalorización"],
+    img: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=90&w=1200"
+  }
 ];
 
+// ─── TESTIMONIOS ─────────────────────────────────────────────────────────────
 export const TESTIMONIOS: Testimonial[] = [
   {
     id: 1,
-    nombre: "Sr. Alexander Von Bürg",
-    rol: "Inversionista Privado",
+    nombre: "Carlos Hernández",
+    rol: "Inversionista • Toronto, Canadá",
     foto: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=90&w=400",
-    cita: "La metodología aplicada por Hola Group transformó mi visión sobre las inversiones en CDMX. Su precisión para detectar zonas con plusvalía oculta es simplemente quirúrgica y honesta.",
+    cita: "Miguel me explicó el modelo fractional en términos tan claros que me animé a invertir en Yucalpetén desde Toronto. Hoy tengo un activo que genera plusvalía mientras yo sigo trabajando en Canadá.",
     estrellas: 5
   },
   {
     id: 2,
-    nombre: "Claudia Mendizábal",
-    rol: "CEO Desarrolladora Lúmina",
+    nombre: "Sandra Orozco",
+    rol: "Empresaria • Guadalajara → Riviera Maya",
     foto: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=90&w=400",
-    cita: "No solo venden metros cuadrados, venden un estilo de vida aspiracional. Son el aliado estratégico que toda constructora de lujo necesita para conectar con clientes de alto perfil.",
+    cita: "No es un agente más. Miguel tiene calidez humana y un conocimiento real del mercado. La compra de nuestra casa en Playa del Carmen fue completamente transparente y sin estrés.",
     estrellas: 5
   },
   {
     id: 3,
-    nombre: "Mauricio Echeverría",
-    rol: "Comprador Residencial",
+    nombre: "Roberto Fuentes",
+    rol: "Ingeniero • Monterrey → Mérida",
     foto: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=90&w=400",
-    cita: "El servicio de concierge inmobiliario superó mis expectativas. Desde la primera cita hasta la firma en notaría, el acompañamiento fue impecable y totalmente transparente.",
+    cita: "Buscaba invertir en Mérida pero no conocía el mercado. Miguel me guió desde la primera ligada hasta la firma en notaría. Profesional, honesto y siempre disponible.",
     estrellas: 5
   }
 ];
 
+// ─── SERVICIOS ────────────────────────────────────────────────────────────────
 export const SERVICIOS: Service[] = [
   {
     id: 1,
-    titulo: "Brokerage de Lujo",
+    titulo: "Asesoría de Inversión",
     icono: "🏠",
-    descripcion: "Representación exclusiva para la compra y venta de activos premium."
+    descripcion: "Te ayudo a encontrar la propiedad correcta para tu perfil y presupuesto."
   },
   {
     id: 2,
-    titulo: "Consultoría de Capital",
+    titulo: "Modelo Fractional",
     icono: "📈",
-    descripcion: "Estructuración financiera y fiscal para inversiones inmobiliarias."
+    descripcion: "Inversión en propiedades de lujo con tickets accesibles desde Canadá."
   },
   {
     id: 3,
-    titulo: "Marketing Inmobiliario",
-    icono: "🎬",
-    descripcion: "Estrategias digitales y de contenido de alto impacto visual."
+    titulo: "Acompañamiento Total",
+    icono: "🤝",
+    descripcion: "Desde la búsqueda hasta la escritura. En español e inglés."
   }
 ];
 
+// ─── TRADUCCIONES ─────────────────────────────────────────────────────────────
 export const TRANSLATIONS = {
   es: {
     nav_home: "Inicio",
-    nav_properties: "Portafolio",
-    nav_sell: "Vender Activo",
+    nav_properties: "Proyectos",
+    nav_sell: "¿Por qué México?",
     nav_contact: "Contacto",
+    nav_concierge: "Mi Historia",
     nav_cta: "WHATSAPP",
     lang_toggle: "EN",
-    hero_title: "Miguel Angel Pérez",
-    hero_subtitle: "El Chef Inmobiliario",
-    hero_cta: "Conoce el desarrollo",
-    hero_cta_primary: "Ver Portafolio",
-    hero_cta_secondary: "WhatsApp",
-    filter_op: "Operación",
-    filter_type: "Tipo",
-    section_services: "Servicios Concierge",
-    section_properties: "Nuevos Desarrollos",
-    catalog_title: "Explora el",
-    search_placeholder: "Busca tu propiedad ideal...",
-    card_rooms: "Habitaciones",
-    card_baths: "Baños",
-    card_details: "Ver Detalles",
-    footer_offices: "Nuestras Oficinas",
-    footer_care: "Concierge VIP",
-    footer_privacy: "Privacidad",
-    footer_terms: "Términos",
-    footer_rights: "Todos los derechos reservados",
-    footer_dev: "Desarrollado por",
-    stat_transactions: "Transacciones",
-    stat_experience: "Años Exp",
-    stat_clients: "Clientes VIP",
-    stat_locations: "Ubicaciones",
-    filter_ai_placeholder: "Describe tu propiedad ideal...",
-    modal_request_btn: "SOLICITAR ACCESO PRIVADO",
-    specs_meters: "Metros",
-    specs_rooms: "Habitaciones",
+    hero_supertitle: "ASESOR INMOBILIARIO BINACIONAL",
+    hero_title: "Invierte en las mejores playas y ciudades de México",
+    hero_subtitle: "con asesoría personalizada desde Canadá.",
+    hero_desc: "Soy Miguel Angel Pérez, el Chef Inmobiliario. Ayudo a latinos y canadienses a invertir de forma inteligente en bienes raíces de alto nivel en México.",
+    hero_cta_primary: "Agenda tu asesoría gratuita",
+    hero_cta_secondary: "Ver proyectos",
+    hero_badge: "🍳 Chef · 🏠 Inmobiliario · 🇨🇦 Toronto",
+    section_why_title: "¿Qué ofrece el Chef Inmobiliario?",
+    section_why_sub: "No vendemos departamentos. Vendemos acceso, confianza y oportunidad.",
+    catalog_supertitle: "Proyectos Seleccionados",
+    catalog_title: "Portafolio de Inversión",
+    search_placeholder: "Busca por zona o tipo de propiedad...",
+    filter_ai_placeholder: "Describe tu inversión ideal...",
+    specs_rooms: "Recámaras",
     specs_baths: "Baños",
-    specs_parking: "Estacionamiento"
+    specs_meters: "Metros²",
+    specs_parking: "Estacionamiento",
+    card_details: "Ver Detalles",
+    modal_request_btn: "Solicitar información",
+    cta_final_supertitle: "¿Listo para invertir?",
+    cta_final_title: "Agenda tu llamada estratégica",
+    cta_final_sub: "30 minutos, sin costo. Analizamos tu situación y te muestro las mejores opciones en México.",
+    form_name: "Tu nombre",
+    form_email: "Tu correo electrónico",
+    form_zona: "¿Qué zona te interesa?",
+    form_zona_merida: "Mérida, Yucatán",
+    form_zona_riviera: "Riviera Maya",
+    form_zona_progreso: "Puerto Progreso / Yucalpetén",
+    form_zona_otro: "Ayúdame a decidir",
+    form_submit: "Quiero mi asesoría gratuita",
+    form_whatsapp: "O escríbeme por WhatsApp",
+    footer_tagline: "El puente entre Canadá y las mejores inversiones en México.",
+    footer_rights: "© 2025 Miguel Angel Pérez • El Chef Inmobiliario"
   },
   en: {
     nav_home: "Home",
-    nav_properties: "Portfolio",
-    nav_sell: "Sell Asset",
+    nav_properties: "Projects",
+    nav_sell: "Why Mexico?",
     nav_contact: "Contact",
-    nav_cta: "CONNECT",
+    nav_concierge: "My Story",
+    nav_cta: "WHATSAPP",
     lang_toggle: "ES",
-    hero_title: "Miguel Angel Pérez",
-    hero_subtitle: "The Real Estate Chef",
-    hero_cta: "Discover Portfolio",
-    hero_cta_primary: "View Portfolio",
-    hero_cta_secondary: "Connect",
-    filter_op: "Investment Type",
-    filter_type: "Category",
-    section_services: "Concierge Services",
-    section_properties: "Developments",
-    catalog_title: "Portfolio",
-    search_placeholder: "Search dream home...",
-    card_rooms: "Bedrooms",
-    card_baths: "Bathrooms",
-    card_details: "Private Dossier",
-    footer_offices: "Offices",
-    footer_care: "Elite Concierge",
-    footer_privacy: "Privacy",
-    footer_terms: "Terms",
-    footer_rights: "All rights reserved",
-    footer_dev: "Developed by",
-    stat_transactions: "Transactions",
-    stat_experience: "Years Exp",
-    stat_clients: "Elite Clients",
-    stat_locations: "Strategic Spots",
-    filter_ai_placeholder: "Describe your dream asset...",
-    modal_request_btn: "REQUEST PRIVATE ACCESS",
-    specs_meters: "Sqm",
+    hero_supertitle: "BINATIONAL REAL ESTATE ADVISOR",
+    hero_title: "Invest in Mexico's best beaches and cities",
+    hero_subtitle: "with personalized advisory from Canada.",
+    hero_desc: "I'm Miguel Angel Pérez, the Real Estate Chef. I help Latinos and Canadians invest wisely in premium Mexican real estate.",
+    hero_cta_primary: "Book your free consultation",
+    hero_cta_secondary: "See projects",
+    hero_badge: "🍳 Chef · 🏠 Real Estate · 🇨🇦 Toronto",
+    section_why_title: "What does the Real Estate Chef offer?",
+    section_why_sub: "We don't sell units. We sell access, trust and opportunity.",
+    catalog_supertitle: "Curated Projects",
+    catalog_title: "Investment Portfolio",
+    search_placeholder: "Search by area or property type...",
+    filter_ai_placeholder: "Describe your ideal investment...",
     specs_rooms: "Bedrooms",
     specs_baths: "Bathrooms",
-    specs_parking: "Parking"
+    specs_meters: "Sqm",
+    specs_parking: "Parking",
+    card_details: "View Details",
+    modal_request_btn: "Request information",
+    cta_final_supertitle: "Ready to invest?",
+    cta_final_title: "Book your strategy call",
+    cta_final_sub: "30 minutes, no cost. We'll analyze your situation and show you the best options in Mexico.",
+    form_name: "Your name",
+    form_email: "Your email",
+    form_zona: "Which area interests you?",
+    form_zona_merida: "Mérida, Yucatán",
+    form_zona_riviera: "Riviera Maya",
+    form_zona_progreso: "Puerto Progreso / Yucalpetén",
+    form_zona_otro: "Help me decide",
+    form_submit: "I want my free consultation",
+    form_whatsapp: "Or message me on WhatsApp",
+    footer_tagline: "The bridge between Canada and Mexico's best investments.",
+    footer_rights: "© 2025 Miguel Angel Pérez • The Real Estate Chef"
   }
 };
 
 export const FORMAT_PRICE = (price: number) => {
-    return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 }).format(price);
+  return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 }).format(price);
 };
