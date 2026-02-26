@@ -48,8 +48,8 @@ export const HISTORIA_MIGUEL = {
 // ─── VENTAJAS / BENEFICIOS ────────────────────────────────────────────────────
 export const VENTAJAS = [
   {
-    titulo: "Inversión Fractional",
-    desc: "Accede a propiedades de clase mundial con tickets accesibles. El modelo fractional te permite invertir en lujo sin necesidad de comprar el 100%.",
+    titulo: "Modelo Fractional",
+    desc: "Invierte en lujo sin comprar el 100%. Adquieres una fracción de una propiedad premium con menor inversión inicial, administración profesional incluida y diversificación inteligente.",
     icono: "Award"
   },
   {
@@ -64,7 +64,7 @@ export const VENTAJAS = [
   },
   {
     titulo: "Acompañamiento Total",
-    desc: "Desde la primera llamada hasta la escritura firmada. Sin surpresas, sin intermediarios, con toda la asesoría legal incluida.",
+    desc: "Desde la selección con análisis de rentabilidad real hasta la escritura firmada, con estrategias para renta vacacional.",
     icono: "ShieldCheck"
   }
 ];
@@ -133,7 +133,7 @@ export const RAZONES_MEXICO = {
 export const PROPIEDADES: Property[] = [
   {
     id: 1,
-    titulo: "Marina Yucalpetén",
+    titulo: "Yucalpetén Resort Marina",
     operacion: "Venta",
     tipo: "Departamento",
     zona: "Yucalpetén, Progreso",
@@ -143,25 +143,25 @@ export const PROPIEDADES: Property[] = [
     metros: 98,
     estacionamientos: 1,
     tag: "Fractional Disponible",
-    descripcion: "Departamentos frente al mar en el nuevo polo náutico de México. A pasos del marina más exclusivo del Golfo. Modelo fractional desde $285,000 MXN.",
-    caracteristicas: ["Vista al Mar", "Acceso Marina", "Alberca Infinity", "Modelo Fractional"],
-    img: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&q=90&w=1200"
+    descripcion: "El nuevo epicentro de lujo frente al mar en Yucatán. Combina marina privada, departamentos premium y amenidades nivel resort. Respaldado por la expansión del Puerto de Progreso.",
+    caracteristicas: ["Marina Privada", "Nivel Resort", "Modelo Fractional", "Alta Plusvalía"],
+    img: "/images/promo-preventas.jpg"
   },
   {
     id: 2,
-    titulo: "Loft Mérida Centro",
+    titulo: "Acceso a Oportunidades",
     operacion: "Venta",
     tipo: "Departamento",
-    zona: "Centro Histórico, Mérida",
+    zona: "Riviera Maya / Mérida",
     precio: 3200000,
     recamaras: 1,
     banos: 1,
     metros: 72,
     estacionamientos: 1,
-    tag: "Alta Plusvalía",
-    descripcion: "Loft de diseño en el corazón del Centro Histórico de Mérida. Zona de mayor crecimiento en Yucatán. Ideal para renta vacacional o residencia personal.",
-    caracteristicas: ["Centro Histórico", "Diseño Moderno", "Renta Vacacional", "Plusvalía +12%"],
-    img: "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&q=90&w=1200"
+    tag: "Proyectos Internacionales",
+    descripcion: "Preventas, proyectos internacionales y opciones exclusivas que no aparecieron en la expo. Diversifica tu capital y genera ingresos en moneda fuerte.",
+    caracteristicas: ["Opciones Exclusivas", "Ticket en Dólares", "Plusvalía", "Acompañamiento Legal"],
+    img: "/images/promo-exclusivas.jpg"
   },
   {
     id: 3,
@@ -290,14 +290,14 @@ export const TRANSLATIONS = {
     nav_cta: "WHATSAPP",
     lang_toggle: "EN",
     hero_supertitle: "ASESOR INMOBILIARIO BINACIONAL",
-    hero_title: "Invierte en las mejores playas y ciudades de México",
-    hero_subtitle: "con asesoría personalizada desde Canadá.",
-    hero_desc: "Soy Miguel Angel Pérez, el Chef Inmobiliario. Ayudo a latinos y canadienses a invertir de forma inteligente en bienes raíces de alto nivel en México.",
+    hero_title: "Invierte en México",
+    hero_subtitle: "mientras vives en Canadá",
+    hero_desc: "Convierte tu ingreso en dólares en patrimonio en México. Sin complicaciones. Sin improvisaciones. Te acompaño en todo el proceso con selección de proyectos, análisis de rentabilidad real y asesoría legal en español.",
     hero_cta_primary: "Agenda tu asesoría gratuita",
     hero_cta_secondary: "Ver proyectos",
-    hero_badge: "🍳 Chef · 🏠 Inmobiliario · 🇨🇦 Toronto",
+    hero_badge: "Flujo de Efectivo · Plusvalía · Seguridad Jurídica",
     section_why_title: "¿Qué ofrece el Chef Inmobiliario?",
-    section_why_sub: "No vendemos departamentos. Vendemos acceso, confianza y oportunidad.",
+    section_why_sub: "No vendo propiedades. Te ayudo a construir patrimonio desde Canadá.",
     catalog_supertitle: "Proyectos Seleccionados",
     catalog_title: "Portafolio de Inversión",
     search_placeholder: "Busca por zona o tipo de propiedad...",
@@ -310,7 +310,7 @@ export const TRANSLATIONS = {
     modal_request_btn: "Solicitar información",
     cta_final_supertitle: "¿Listo para invertir?",
     cta_final_title: "Agenda tu llamada estratégica",
-    cta_final_sub: "30 minutos, sin costo. Analizamos tu situación y te muestro las mejores opciones en México.",
+    cta_final_sub: "Revisemos qué proyecto se adapta a tu perfil. 30 minutos, sin costo.",
     form_name: "Tu nombre",
     form_email: "Tu correo electrónico",
     form_zona: "¿Qué zona te interesa?",
@@ -321,7 +321,7 @@ export const TRANSLATIONS = {
     form_submit: "Quiero mi asesoría gratuita",
     form_whatsapp: "O escríbeme por WhatsApp",
     footer_tagline: "El puente entre Canadá y las mejores inversiones en México.",
-    footer_rights: "© 2025 Miguel Angel Pérez • El Chef Inmobiliario"
+    footer_rights: "© 2027 Miguel Angel Pérez • El Chef Inmobiliario"
   },
   en: {
     nav_home: "Home",

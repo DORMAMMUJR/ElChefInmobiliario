@@ -17,8 +17,8 @@ const App: React.FC = () => {
   const [isAIProcessing, setIsAIProcessing] = useState(false);
   const [filters, setFilters] = useState<FilterState>({ operacion: 'todos', tipo: 'todos', zona: 'todos', precioMax: '', query: '' });
 
-  // Profile Picture State - Initial state is the professional portrait from the link provided
-  const [profilePic, setProfilePic] = useState<string>("https://github.com/DORMAMMUJR/ElChefInmobiliario/blob/main/WhatsApp%20Image%202026-01-23%20at%204.22.16%20PM.jpeg?raw=true");
+  // Profile Picture State - Local image (place file at /public/images/perfil-miguel.jpg)
+  const [profilePic, setProfilePic] = useState<string>("/images/perfil-miguel.jpg");
   const [isChangingPic, setIsChangingPic] = useState(false);
   const [password, setPassword] = useState("");
   const [newUrl, setNewUrl] = useState("");
@@ -73,9 +73,25 @@ const App: React.FC = () => {
     }
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setFormSubmitted(true);
+
+    // ── Reemplaza TU_ID_DE_FORMSPREE con tu ID real de formspree.io ──
+    const response = await fetch("https://formspree.io/f/TU_ID_DE_FORMSPREE", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        nombre: formName,
+        email: formEmail,
+        zona: formZona
+      })
+    });
+
+    if (response.ok) {
+      setFormSubmitted(true);
+    } else {
+      alert("Hubo un error al enviar tu solicitud. Intenta por WhatsApp.");
+    }
   };
 
   const PANTRY_ITEMS = [
