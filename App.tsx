@@ -108,7 +108,7 @@ const App: React.FC = () => {
           <div className="flex items-center gap-6 cursor-pointer group">
             <div className="relative" onClick={() => setIsChangingPic(true)}>
               <img
-                src={profilePic}
+                src="/images/logo-chef.jpeg"
                 className="w-12 h-12 rounded-full object-cover border border-[#D4AF37]/40 shadow-xl group-hover:opacity-60 transition-opacity"
                 alt="Executive Profile"
               />
@@ -164,7 +164,7 @@ const App: React.FC = () => {
               {/* HERO SECTION */}
               <section className="min-h-[calc(100vh-96px)] flex flex-col lg:flex-row w-full bg-[#011c16]">
                 <div className="w-full lg:w-1/2 relative h-[60vh] lg:h-auto overflow-hidden bg-black">
-                  <img src={profilePic} className="w-full h-full object-cover object-top opacity-60 scale-105" alt="Miguel Angel Pérez - El Chef Inmobiliario" />
+                  <img src="/images/perfil-miguel.jpeg" className="w-full h-full object-cover object-top opacity-60 scale-105" alt="Miguel Angel Pérez - El Chef Inmobiliario" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#011c16] via-[#011c16]/20 to-transparent lg:hidden" />
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#011c16] opacity-60 hidden lg:block" />
                 </div>
@@ -271,7 +271,7 @@ const App: React.FC = () => {
               <section id="historia" className="py-28 bg-[#011c16]">
                 <div className="container mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
                   <div className="relative overflow-hidden h-[500px]">
-                    <img src={profilePic} className="w-full h-full object-cover object-top grayscale" alt="Miguel Angel Pérez" />
+                    <img src="/images/perfil-miguel.jpeg" className="w-full h-full object-cover object-top grayscale" alt="Miguel Angel Pérez" />
                     <div className="absolute bottom-0 inset-x-0 h-1/2 bg-gradient-to-t from-[#011c16] to-transparent" />
                   </div>
                   <div>
