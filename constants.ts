@@ -145,7 +145,7 @@ export const PROPIEDADES: Property[] = [
     tag: "Fractional Disponible",
     descripcion: "El nuevo epicentro de lujo frente al mar en Yucatán. Combina marina privada, departamentos premium y amenidades nivel resort. Respaldado por la expansión del Puerto de Progreso.",
     caracteristicas: ["Marina Privada", "Nivel Resort", "Modelo Fractional", "Alta Plusvalía"],
-    img: "/images/promo-preventas.jpg"
+    img: "/images/promo-preventas.jpeg"
   },
   {
     id: 2,
@@ -161,7 +161,7 @@ export const PROPIEDADES: Property[] = [
     tag: "Proyectos Internacionales",
     descripcion: "Preventas, proyectos internacionales y opciones exclusivas que no aparecieron en la expo. Diversifica tu capital y genera ingresos en moneda fuerte.",
     caracteristicas: ["Opciones Exclusivas", "Ticket en Dólares", "Plusvalía", "Acompañamiento Legal"],
-    img: "/images/promo-exclusivas.jpg"
+    img: "/images/promo-exclusivas.jpeg"
   },
   {
     id: 3,

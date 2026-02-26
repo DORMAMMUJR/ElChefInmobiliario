@@ -17,8 +17,8 @@ const App: React.FC = () => {
   const [isAIProcessing, setIsAIProcessing] = useState(false);
   const [filters, setFilters] = useState<FilterState>({ operacion: 'todos', tipo: 'todos', zona: 'todos', precioMax: '', query: '' });
 
-  // Profile Picture State - Local image (place file at /public/images/perfil-miguel.jpg)
-  const [profilePic, setProfilePic] = useState<string>("/images/perfil-miguel.jpg");
+  // Profile Picture State - Local image (place file at /public/images/perfil-miguel.jpeg)
+  const [profilePic, setProfilePic] = useState<string>("/images/perfil-miguel.jpeg");
   const [isChangingPic, setIsChangingPic] = useState(false);
   const [password, setPassword] = useState("");
   const [newUrl, setNewUrl] = useState("");
