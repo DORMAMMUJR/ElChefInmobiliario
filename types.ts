@@ -3,7 +3,7 @@ export interface Property {
   id: number;
   titulo: string;
   operacion: 'Venta' | 'Renta';
-  tipo: 'Casa' | 'Departamento' | 'Terreno';
+  tipo: 'Casa' | 'Departamento' | 'Terreno' | 'Estudio' | 'Penthouse';
   zona: string;
   precio: number;
   recamaras: number;

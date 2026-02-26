@@ -129,7 +129,7 @@ export const RAZONES_MEXICO = {
   }
 };
 
-// ─── PROPIEDADES ─────────────────────────────────────────────────────────────
+// ─── PROPIEDADES (Catálogo de Inversión) ──────────────────────────────────────
 export const PROPIEDADES: Property[] = [
   {
     id: 1,
@@ -143,9 +143,9 @@ export const PROPIEDADES: Property[] = [
     metros: 98,
     estacionamientos: 1,
     tag: "Fractional Disponible",
-    descripcion: "El nuevo epicentro de lujo frente al mar en Yucatán. Combina marina privada, departamentos premium y amenidades nivel resort. Respaldado por la expansión del Puerto de Progreso.",
+    descripcion: "El nuevo epicentro de lujo frente al mar en Yucatán. Marina privada, amenidades nivel resort y alta plusvalía.",
     caracteristicas: ["Marina Privada", "Nivel Resort", "Modelo Fractional", "Alta Plusvalía"],
-    img: "/images/promo-preventas.jpeg"
+    img: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&q=90&w=1200"
   },
   {
     id: 2,
@@ -158,74 +158,74 @@ export const PROPIEDADES: Property[] = [
     banos: 1,
     metros: 72,
     estacionamientos: 1,
-    tag: "Proyectos Internacionales",
-    descripcion: "Preventas, proyectos internacionales y opciones exclusivas que no aparecieron en la expo. Diversifica tu capital y genera ingresos en moneda fuerte.",
+    tag: "Preventas Exclusivas",
+    descripcion: "Proyectos internacionales y opciones exclusivas fuera de mercado. Diversifica tu capital en moneda fuerte.",
     caracteristicas: ["Opciones Exclusivas", "Ticket en Dólares", "Plusvalía", "Acompañamiento Legal"],
-    img: "/images/promo-exclusivas.jpeg"
+    img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=90&w=1200"
   },
   {
     id: 3,
-    titulo: "Oasis Riviera Maya",
+    titulo: "Playa del Carmen Luxury",
     operacion: "Venta",
-    tipo: "Casa",
-    zona: "Playa del Carmen, Riviera Maya",
-    precio: 7500000,
-    recamaras: 3,
-    banos: 3,
-    metros: 185,
-    estacionamientos: 2,
-    tag: "Luxury",
-    descripcion: "Casa de playa con jardín privado y alberca, a 200 metros del mar Caribe. Zona de alta demanda vacacional con retorno de renta del 10% anual.",
-    caracteristicas: ["200m del Mar", "Alberca Privada", "Jardín", "ROI 10% Renta"],
-    img: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=90&w=1200"
+    tipo: "Estudio",
+    zona: "Playa del Carmen, Centro",
+    precio: 1950000,
+    recamaras: 1,
+    banos: 1,
+    metros: 45,
+    estacionamientos: 1,
+    tag: "Fractional / ROI Elevado",
+    descripcion: "Estudios y departamentos en el corazón de Playa. Perfectos para renta vacacional y flujo de efectivo.",
+    caracteristicas: ["Cerca de 5a Av.", "Rooftop Pool", "Flujo de Efectivo", "Administración Pro"],
+    img: "https://images.unsplash.com/photo-1613553507447-557ff688f8ca?auto=format&fit=crop&q=90&w=1200"
   },
   {
     id: 4,
-    titulo: "Torres Progreso Náutico",
+    titulo: "Tulum Selva Maya",
     operacion: "Venta",
-    tipo: "Departamento",
-    zona: "Puerto Progreso, Yucatán",
-    precio: 1950000,
-    recamaras: 2,
-    banos: 2,
-    metros: 85,
-    estacionamientos: 1,
-    tag: "Pre-venta",
-    descripcion: "Pre-venta en el desarrollo más estratégico del Puerto de Progreso. Invierte hoy, capitaliza cuando el puerto termine su expansión en 2027.",
-    caracteristicas: ["Pre-venta", "Vista al Puerto", "Expansión 2027", "Entrega Garantizada"],
-    img: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=90&w=1200"
+    tipo: "Penthouse",
+    zona: "Tulum, Aldea Zama",
+    precio: 4100000,
+    recamaras: 3,
+    banos: 3,
+    metros: 160,
+    estacionamientos: 2,
+    tag: "Entrega Inmediata",
+    descripcion: "Penthouse con alberca privada inmerso en la selva. Diseño biofílico y alta demanda turística.",
+    caracteristicas: ["Alberca Privada", "Diseño Biofílico", "Zona Premium", "Seguridad 24/7"],
+    img: "https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&q=90&w=1200"
   },
   {
     id: 5,
-    titulo: "Penthouse Mérida Norte",
-    operacion: "Venta",
-    tipo: "Departamento",
-    zona: "Norte, Mérida",
-    precio: 5800000,
-    recamaras: 3,
-    banos: 3,
-    metros: 210,
-    estacionamientos: 2,
-    tag: "Exclusivo",
-    descripcion: "Penthouse en la zona más exclusiva de Mérida Norte. Terraza panorámica, acabados europeos y amenidades de resort. Para el inversor que no se conforma.",
-    caracteristicas: ["Terraza Panorámica", "Acabados Europeos", "Amenidades Resort", "Zona Premium"],
-    img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1200"
-  },
-  {
-    id: 6,
-    titulo: "Villa Tulum Selva",
+    titulo: "Residencial en Mérida",
     operacion: "Venta",
     tipo: "Casa",
-    zona: "Tulum, Riviera Maya",
-    precio: 9200000,
+    zona: "Mérida, Norte",
+    precio: 5500000,
     recamaras: 4,
     banos: 4,
     metros: 280,
+    estacionamientos: 3,
+    tag: "Plusvalía Garantizada",
+    descripcion: "Casas residenciales en la zona de mayor crecimiento de Mérida. Seguridad, paz y patrimonio sólido.",
+    caracteristicas: ["Zona Norte", "Club House", "Seguridad 24/7", "Alta Plusvalía"],
+    img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=90&w=1200"
+  },
+  {
+    id: 6,
+    titulo: "Puerto Progreso Mar",
+    operacion: "Venta",
+    tipo: "Departamento",
+    zona: "Progreso, Malecón",
+    precio: 2900000,
+    recamaras: 3,
+    banos: 2,
+    metros: 110,
     estacionamientos: 2,
-    tag: "Eco-Luxury",
-    descripcion: "Villa de lujo ecológico en la selva de Tulum. Arquitectura bioclimática, alberca privada y a minutos de la zona arqueológica. El futuro del lujo consciente.",
-    caracteristicas: ["Eco-Lujo", "Arquitectura Bioclimática", "Selva Tulum", "Alta Revalorización"],
-    img: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=90&w=1200"
+    tag: "Frente al Mar",
+    descripcion: "Departamentos con vista espectacular al Golfo de México. Cerca del nuevo puerto y amenidades.",
+    caracteristicas: ["Vista al Mar", "Malecón", "Inversión Segura", "Terraza"],
+    img: "https://images.unsplash.com/photo-1520454125516-134a66d6bd78?auto=format&fit=crop&q=90&w=1200"
   }
 ];
 
